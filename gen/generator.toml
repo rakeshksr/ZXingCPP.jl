@@ -1,0 +1,18 @@
+[general]
+module_name = "libZXingCpp"
+library_name = "libZXing"
+library_names = {}
+jll_pkg_name = "ZXing_CPP_jll"
+jll_pkg_extra = []
+output_file_path = ""
+prologue_file_path = ""
+epilogue_file_path = ""
+extract_c_comment_style = "doxygen"
+
+[codegen]
+use_julia_bool = true
+always_NUL_terminated_string = true
+use_ccall_macro = true
+
+[codegen.macro]
+macro_mode = "basic"

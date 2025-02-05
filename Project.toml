@@ -1,0 +1,19 @@
+name = "ZXing_CPP"
+uuid = "ffcb3a2f-c869-4483-b5bf-82d7b239c77e"
+authors = ["rakeshksr and contributors"]
+version = "0.1.0"
+
+[deps]
+CEnum = "fa961155-64e5-5f13-b03f-caf6b980ea82"
+ZXing_CPP_jll = "66b684e8-4fb7-5952-97a4-a506b1089b62"
+
+[compat]
+CEnum = "0.5.0"
+ZXing_CPP_jll = "2.3.0"
+julia = "1.6.7"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
