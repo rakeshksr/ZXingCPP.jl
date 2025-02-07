@@ -127,4 +127,4 @@ ReaderOptions(
     )
 end
 
-read_bar_codes(iv::ImageView, opts::ReaderOptions=ReaderOptions()) = ZXing_ReadBarcodes(iv.ptr, opts.ptr)
+read_barcodes(iv::ImageView, opts::ReaderOptions=ReaderOptions()) = Barcodes(ZXing_ReadBarcodes(iv.ptr, opts.ptr))
