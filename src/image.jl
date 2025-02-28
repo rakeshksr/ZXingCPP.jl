@@ -5,7 +5,11 @@ using .libZXingCpp:
     ZXing_ImageView_new,
     ZXing_ImageView_new_checked,
     ZXing_Image,
-    ZXing_Image_delete
+    ZXing_Image_delete,
+    ZXing_Image_data,
+    ZXing_Image_width,
+    ZXing_Image_height,
+    ZXing_Image_format
 
 # Image View
 mutable struct ImageView
@@ -24,7 +28,13 @@ function ImageView(data::Ptr{UInt8}, width::Cint, height::Cint, format::ZXing_Im
     return ImageView(ptr)
 end
 
-function ImageView(data::AbstractArray{UInt8}, format::ZXing_ImageFormat, row_stride=0, pix_stride=0)
+function ImageView(data::AbstractArray{UInt8}, width::Cint, height::Cint, format::ZXing_ImageFormat, row_stride=0, pix_stride=0)
+    s = length(data)
+    ptr = ZXing_ImageView_new_checked(data, s, width, height, format, row_stride, pix_stride)
+    return ImageView(ptr)
+end
+
+function ImageView(data::AbstractMatrix{UInt8}, format::ZXing_ImageFormat, row_stride=0, pix_stride=0)
     h = size(data, 1)
     w = size(data, 2)
     s = length(data)
@@ -45,9 +55,12 @@ mutable struct Image
     end
 end
 
-# To-Do
-# Image_data(img::Image) = ZXing_Image_data(img.ptr)
-
 width(img::Image) = ZXing_Image_width(img.ptr)
-heigh(img::Image) = ZXing_Image_height(img.ptr)
+height(img::Image) = ZXing_Image_height(img.ptr)
+function data(img::Image)
+    dp = ZXing_Image_data(img.ptr)
+    w = width(img)
+    h = height(img)
+    return unsafe_wrap(Array, dp, (w, h))
+end
 format(img::Image) = ZXing_Image_format(img.ptr)

@@ -10,7 +10,8 @@ using .libZXingCpp:
     ZXing_CreatorOptions_getFormat,
     ZXing_CreatorOptions_getReaderInit,
     ZXing_CreatorOptions_getForceSquareDataMatrix,
-    ZXing_CreatorOptions_getEcLevel
+    ZXing_CreatorOptions_getEcLevel,
+    ZXing_CreateBarcodeFromText
 
 
 mutable struct CreatorOptions
@@ -72,7 +73,9 @@ CreatorOptions(
 end
 
 create_barcode_from_text(data::String, size::Int32, opts::CreatorOptions) = Barcode(ZXing_CreateBarcodeFromText(data, size, opts.ptr))
+create_barcode_from_text(data::String, opts::CreatorOptions) = Barcode(ZXing_CreateBarcodeFromText(data, 0, opts.ptr))
 Barcode(data::String, size::Int32, opts::CreatorOptions) = create_barcode_from_text(data, size, opts)
+Barcode(data::String, opts::CreatorOptions) = create_barcode_from_text(data, opts)
 # To-Do
 # function ZXing_CreateBarcodeFromBytes(data, size, opts)
 #     @ccall libZXing.ZXing_CreateBarcodeFromBytes(data::Ptr{Cvoid}, size::Cint, opts::Ptr{ZXing_CreatorOptions})::Ptr{ZXing_Barcode}

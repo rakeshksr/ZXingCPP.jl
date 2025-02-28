@@ -32,7 +32,7 @@ function WriterOptions(; kwargs...)
     opts = WriterOptions(ptr)
     kw_map = Dict(
         :scale => set_scale!,
-        :size_hint! => set_size_hint!,
+        :size_hint => set_size_hint!,
         :rotate => set_rotate!,
         :with_hrt => set_with_hrt!,
         :with_quiet_zones => set_with_quiet_zones!

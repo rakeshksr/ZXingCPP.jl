@@ -14,7 +14,7 @@ include("creator.jl")
 export CreatorOptions
 
 include("reader.jl")
-export ReaderOptions, read_bar_codes
+export ReaderOptions, read_barcodes
 
 include("writer.jl")
 export WriterOptions, write_barcode_to_svg, write_barcode_to_image
