@@ -1,4 +1,4 @@
-name = "ZXing_CPP"
+name = "ZXingCPP"
 uuid = "ffcb3a2f-c869-4483-b5bf-82d7b239c77e"
 authors = ["rakeshksr and contributors"]
 version = "0.1.0"

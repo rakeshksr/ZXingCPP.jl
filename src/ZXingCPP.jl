@@ -1,4 +1,4 @@
-module ZXing_CPP
+module ZXingCPP
 using ZXing_CPP_jll
 
 libdir = joinpath(@__DIR__, "..", "lib")
@@ -19,4 +19,4 @@ export ReaderOptions, read_barcodes
 include("writer.jl")
 export WriterOptions, write_barcode_to_svg, write_barcode_to_image
 
-end # module ZXing_CPP
+end # module ZXingCPP

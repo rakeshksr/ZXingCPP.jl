@@ -1,6 +1,6 @@
-using ZXing_CPP
+using ZXingCPP
 using Test
 
-@testset "ZXing_CPP.jl" begin
+@testset "ZXingCPP.jl" begin
     # Write your tests here.
 end
