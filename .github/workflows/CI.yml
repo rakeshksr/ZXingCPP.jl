@@ -25,7 +25,6 @@ jobs:
         version:
           - '1'
           - 'lts'
-          - '1.6'
         os:
           - ubuntu-latest
         arch:
