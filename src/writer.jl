@@ -1,21 +1,3 @@
-using .libZXingCpp:
-    ZXing_WriterOptions,
-    ZXing_WriterOptions_new,
-    ZXing_WriterOptions_delete,
-    ZXing_WriterOptions_setScale,
-    ZXing_WriterOptions_setSizeHint,
-    ZXing_WriterOptions_setRotate,
-    ZXing_WriterOptions_setWithHRT,
-    ZXing_WriterOptions_setWithQuietZones,
-    ZXing_WriterOptions_getScale,
-    ZXing_WriterOptions_getSizeHint,
-    ZXing_WriterOptions_getRotate,
-    ZXing_WriterOptions_getWithHRT,
-    ZXing_WriterOptions_getWithQuietZones,
-    ZXing_WriteBarcodeToSVG,
-    ZXing_WriteBarcodeToImage
-
-
 mutable struct WriterOptions
     ptr::Ptr{ZXing_WriterOptions}
 

@@ -5,6 +5,7 @@ version = "0.1.0"
 
 [deps]
 CEnum = "fa961155-64e5-5f13-b03f-caf6b980ea82"
+Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 ZXing_CPP_jll = "66b684e8-4fb7-5952-97a4-a506b1089b62"
 
 [weakdeps]
@@ -16,6 +17,7 @@ ZXingCPPOpenCVExt = "OpenCV"
 [compat]
 CEnum = "0.5.0"
 OpenCV = "4.6.0"
+Reexport = "1.2.2"
 ZXing_CPP_jll = "2.3.0"
 julia = "1.6.7"
 

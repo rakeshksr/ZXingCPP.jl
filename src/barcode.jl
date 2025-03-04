@@ -1,29 +1,3 @@
-using .libZXingCpp:
-    ZXing_Barcode,
-    ZXing_BarcodeFormat,
-    ZXing_BarcodeFormatToString,
-    ZXing_Barcode_delete,
-    ZXing_Barcode_isValid,
-    # ZXing_Barcode_errorType,
-    # ZXing_Barcode_errorMsg,
-    ZXing_Barcode_format,
-    # ZXing_Barcode_contentType,
-    # ZXing_Barcode_bytes,
-    # ZXing_Barcode_bytesECI,
-    ZXing_Barcode_text,
-    ZXing_Barcode_ecLevel,
-    ZXing_Barcode_symbologyIdentifier,
-    ZXing_Barcode_position,
-    ZXing_Barcode_orientation,
-    ZXing_Barcode_hasECI,
-    ZXing_Barcode_isInverted,
-    ZXing_Barcode_isMirrored,
-    ZXing_Barcode_lineCount,
-    ZXing_Barcodes,
-    ZXing_Barcodes_delete,
-    ZXing_Barcodes_size,
-    ZXing_Barcodes_at
-
 # include("utils.jl")
 
 Base.string(barcode_format::ZXing_BarcodeFormat) = unsafe_string(ZXing_BarcodeFormatToString(barcode_format))

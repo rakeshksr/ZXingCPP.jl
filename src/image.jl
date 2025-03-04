@@ -1,17 +1,3 @@
-using .libZXingCpp:
-    ZXing_ImageFormat,
-    ZXing_ImageView,
-    ZXing_ImageView_delete,
-    ZXing_ImageView_new,
-    ZXing_ImageView_new_checked,
-    ZXing_Image,
-    ZXing_Image_delete,
-    ZXing_Image_data,
-    ZXing_Image_width,
-    ZXing_Image_height,
-    ZXing_Image_format
-
-# Image View
 mutable struct ImageView
     ptr::Ptr{ZXing_ImageView}
 
@@ -42,8 +28,6 @@ function ImageView(data::AbstractMatrix{UInt8}, format::ZXing_ImageFormat, row_s
     return ImageView(ptr)
 end
 
-
-# Image
 mutable struct Image
     ptr::Ptr{ZXing_Image}
 

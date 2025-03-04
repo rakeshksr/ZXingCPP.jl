@@ -1,37 +1,3 @@
-using .libZXingCpp:
-    ZXing_BarcodeFormats,
-    ZXing_Binarizer,
-    ZXing_EanAddOnSymbol,
-    ZXing_TextMode,
-    ZXing_ReaderOptions,
-    ZXing_ReaderOptions_new,
-    ZXing_ReaderOptions_delete,
-    ZXing_ReaderOptions_setTryHarder,
-    ZXing_ReaderOptions_setTryRotate,
-    ZXing_ReaderOptions_setTryInvert,
-    ZXing_ReaderOptions_setTryDownscale,
-    ZXing_ReaderOptions_setIsPure,
-    ZXing_ReaderOptions_setReturnErrors,
-    ZXing_ReaderOptions_setFormats,
-    ZXing_ReaderOptions_setBinarizer,
-    ZXing_ReaderOptions_setEanAddOnSymbol,
-    ZXing_ReaderOptions_setTextMode,
-    ZXing_ReaderOptions_setMinLineCount,
-    ZXing_ReaderOptions_setMaxNumberOfSymbols,
-    ZXing_ReaderOptions_getTryHarder,
-    ZXing_ReaderOptions_getTryRotate,
-    ZXing_ReaderOptions_getTryInvert,
-    ZXing_ReaderOptions_getTryDownscale,
-    ZXing_ReaderOptions_getIsPure,
-    ZXing_ReaderOptions_getReturnErrors,
-    ZXing_ReaderOptions_getFormats,
-    ZXing_ReaderOptions_getBinarizer,
-    ZXing_ReaderOptions_getEanAddOnSymbol,
-    ZXing_ReaderOptions_getTextMode,
-    ZXing_ReaderOptions_getMinLineCount,
-    ZXing_ReaderOptions_getMaxNumberOfSymbols,
-    ZXing_ReadBarcodes
-
 mutable struct ReaderOptions
     ptr::Ptr{ZXing_ReaderOptions}
 

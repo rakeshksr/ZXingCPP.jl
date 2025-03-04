@@ -15,7 +15,7 @@ using OpenCV
 ```
 ### Create
 ```julia
-f = ZXingCPP.libZXingCpp.ZXing_BarcodeFormat_QRCode
+f = ZXing_BarcodeFormat_QRCode
 co = CreatorOptions(f)
 bc = Barcode("HELLO WORLD", co)
 print(bc)
@@ -30,7 +30,7 @@ OpenCV.imwrite("barcode.png", cvimg)
 ### Read
 ```julia
 img = OpenCV.imread("barcode.png", OpenCV.IMREAD_UNCHANGED)
-ro = ReaderOptions(; formats=ZXingCPP.libZXingCpp.ZXing_BarcodeFormat_QRCode)
+ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
 bcs = read_barcodes(cvimg)
 print(bcs)
 ```

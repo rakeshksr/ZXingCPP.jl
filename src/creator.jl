@@ -1,19 +1,3 @@
-using .libZXingCpp:
-    ZXing_BarcodeFormat,
-    ZXing_CreatorOptions,
-    ZXing_CreatorOptions_new,
-    ZXing_CreatorOptions_delete,
-    ZXing_CreatorOptions_setFormat,
-    ZXing_CreatorOptions_setReaderInit,
-    ZXing_CreatorOptions_setForceSquareDataMatrix,
-    ZXing_CreatorOptions_setEcLevel,
-    ZXing_CreatorOptions_getFormat,
-    ZXing_CreatorOptions_getReaderInit,
-    ZXing_CreatorOptions_getForceSquareDataMatrix,
-    ZXing_CreatorOptions_getEcLevel,
-    ZXing_CreateBarcodeFromText
-
-
 mutable struct CreatorOptions
     ptr::Ptr{ZXing_CreatorOptions}
 

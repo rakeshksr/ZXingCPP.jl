@@ -503,4 +503,12 @@ function ZXing_free(ptr)
     @ccall libZXing.ZXing_free(ptr::Ptr{Cvoid})::Cvoid
 end
 
+# exports
+const PREFIXES = ["ZXing_"]
+for name in names(@__MODULE__; all=true), prefix in PREFIXES
+    if startswith(string(name), prefix)
+        @eval export $name
+    end
+end
+
 end # module
