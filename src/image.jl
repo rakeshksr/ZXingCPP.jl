@@ -29,6 +29,9 @@ function ImageView(data::AbstractMatrix{UInt8}, row_stride=0, pix_stride=0)
     return ImageView(ptr)
 end
 
+crop!(iv::ImageView, left::Integer, top::Integer, width::Integer, height::Integer) = ZXing_ImageView_crop(iv.ptr, left, top, width, height)
+rotate!(iv::ImageView, degree::Integer) = ZXing_ImageView_rotate(iv.ptr, degree)
+
 mutable struct Image
     ptr::Ptr{ZXing_Image}
 
