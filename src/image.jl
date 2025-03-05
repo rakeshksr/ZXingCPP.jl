@@ -9,12 +9,12 @@ mutable struct ImageView
     end
 end
 
-function ImageView(data::Ptr{UInt8}, width::Cint, height::Cint, format::ZXing_ImageFormat, row_stride=0, pix_stride=0)
+function ImageView(data::Ptr{UInt8}, width::Integer, height::Integer, format::ZXing_ImageFormat, row_stride=0, pix_stride=0)
     ptr = ZXing_ImageView_new(data, width, height, format, row_stride, pix_stride)
     return ImageView(ptr)
 end
 
-function ImageView(data::AbstractArray{UInt8}, width::Cint, height::Cint, format::ZXing_ImageFormat, row_stride=0, pix_stride=0)
+function ImageView(data::AbstractArray{UInt8}, width::Integer, height::Integer, format::ZXing_ImageFormat, row_stride=0, pix_stride=0)
     s = length(data)
     ptr = ZXing_ImageView_new_checked(data, s, width, height, format, row_stride, pix_stride)
     return ImageView(ptr)

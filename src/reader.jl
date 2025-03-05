@@ -43,8 +43,8 @@ set_formats!(opts::ReaderOptions, formats::ZXing_BarcodeFormats) = ZXing_ReaderO
 set_binarizer!(opts::ReaderOptions, binarizer::ZXing_Binarizer) = ZXing_ReaderOptions_setBinarizer(opts.ptr, binarizer)
 set_ean_add_on_symbol!(opts::ReaderOptions, ean_add_on_symbol::ZXing_EanAddOnSymbol) = ZXing_ReaderOptions_setEanAddOnSymbol(opts.ptr, ean_add_on_symbol)
 set_text_mode!(opts::ReaderOptions, text_mode::ZXing_TextMode) = ZXing_ReaderOptions_setTextMode(opts.ptr, text_mode)
-set_min_line_count!(opts::ReaderOptions, n::Int32) = ZXing_ReaderOptions_setMinLineCount(opts.ptr, n)
-set_max_number_of_symbols!(opts::ReaderOptions, n::Int32) = ZXing_ReaderOptions_setMaxNumberOfSymbols(opts.ptr, n)
+set_min_line_count!(opts::ReaderOptions, n::Integer) = ZXing_ReaderOptions_setMinLineCount(opts.ptr, n)
+set_max_number_of_symbols!(opts::ReaderOptions, n::Integer) = ZXing_ReaderOptions_setMaxNumberOfSymbols(opts.ptr, n)
 
 get_try_harder(opts::ReaderOptions) = ZXing_ReaderOptions_getTryHarder(opts.ptr)
 get_try_rotate(opts::ReaderOptions) = ZXing_ReaderOptions_getTryRotate(opts.ptr)

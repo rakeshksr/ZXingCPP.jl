@@ -22,7 +22,7 @@ print(bc)
 ```
 ### Write
 ```julia
-wo = WriterOptions(; scale=Int32(10))
+wo = WriterOptions(; scale=10)
 zimg = write_barcode_to_image(bc, wo)
 cvimg = OpenCV.Mat(zimg)
 OpenCV.imwrite("barcode.png", cvimg)

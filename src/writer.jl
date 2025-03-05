@@ -26,9 +26,9 @@ function WriterOptions(; kwargs...)
     return opts
 end
 
-set_scale!(opts::WriterOptions, scale::Int32) = ZXing_WriterOptions_setScale(opts.ptr, scale)
-set_size_hint!(opts::WriterOptions, size_hint::Int32) = ZXing_WriterOptions_setSizeHint(opts.ptr, size_hint)
-set_rotate!(opts::WriterOptions, rotate::Int32) = ZXing_WriterOptions_setRotate(opts.ptr, rotate)
+set_scale!(opts::WriterOptions, scale::Integer) = ZXing_WriterOptions_setScale(opts.ptr, scale)
+set_size_hint!(opts::WriterOptions, size_hint::Integer) = ZXing_WriterOptions_setSizeHint(opts.ptr, size_hint)
+set_rotate!(opts::WriterOptions, rotate::Integer) = ZXing_WriterOptions_setRotate(opts.ptr, rotate)
 set_with_hrt!(opts::WriterOptions, with_hrt::Bool) = ZXing_WriterOptions_setWithHRT(opts.ptr, with_hrt)
 set_with_quiet_zones!(opts::WriterOptions, with_quiet_zones::Bool) = ZXing_WriterOptions_setWithQuietZones(opts.ptr, with_quiet_zones)
 
