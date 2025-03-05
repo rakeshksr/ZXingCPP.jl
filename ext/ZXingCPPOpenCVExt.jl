@@ -12,14 +12,14 @@ end
 function ZXingCPP.ImageView(img::OpenCV.Mat{UInt8})
     c, w, h = size(img)
     fmt = if c == 1
-        ZXingCPP.libZXingCpp.ZXing_ImageFormat_Lum
+        ZXing_ImageFormat_Lum
     elseif c == 2
-        ZXingCPP.libZXingCpp.ZXing_ImageFormat_LumA
+        ZXing_ImageFormat_LumA
     elseif c == 3
-        ZXingCPP.libZXingCpp.ZXing_ImageFormat_BGR
+        ZXing_ImageFormat_BGR
     else
         # c==4
-        ZXingCPP.libZXingCpp.ZXing_ImageFormat_BGRA
+        ZXing_ImageFormat_BGRA
     end
     return ZXingCPP.ImageView(img, w, h, fmt)
 end
