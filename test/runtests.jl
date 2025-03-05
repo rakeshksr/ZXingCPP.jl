@@ -2,5 +2,8 @@ using ZXingCPP
 using Test
 
 @testset "ZXingCPP.jl" begin
-    # Write your tests here.
+    include("barcode_format.jl")
+    include("barcode.jl")
+    include("creator.jl")
+    include("reader.jl")
 end
