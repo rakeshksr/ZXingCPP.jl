@@ -48,3 +48,12 @@ function data(img::Image)
     return unsafe_wrap(Array, dp, (w, h))
 end
 format(img::Image) = ZXing_Image_format(img.ptr)
+
+function ImageView(img::Image)
+    ptr = img.ptr
+    dp = ZXing_Image_data(ptr)
+    w = ZXing_Image_width(ptr)
+    h = ZXing_Image_height(ptr)
+    fmt = ZXing_Image_format(ptr)
+    ImageView(dp, w, h, fmt)
+end
