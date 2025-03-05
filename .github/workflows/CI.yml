@@ -33,9 +33,7 @@ jobs:
         include:
           - os: macOS-latest
             arch: aarch64
-            version: 
-              - '1'
-              - 'lts'
+            version: ['1', 'lts']
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
