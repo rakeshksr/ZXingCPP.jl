@@ -1,8 +1,3 @@
-# include("utils.jl")
-
-Base.string(barcode_format::ZXing_BarcodeFormat) = unsafe_string(ZXing_BarcodeFormatToString(barcode_format))
-
-
 # Barcode
 # create_zxing_ptr_struct(:Barcode, :ZXing_Barcode)
 mutable struct Barcode

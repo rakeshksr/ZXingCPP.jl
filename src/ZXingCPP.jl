@@ -7,6 +7,8 @@ include(joinpath(libdir, "libZXingCpp.jl"))
 
 @reexport using .libZXingCpp
 
+include("show.jl")
+
 include("barcode.jl")
 export Barcode, Barcodes
 
