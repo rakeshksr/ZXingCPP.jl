@@ -1,14 +1,3 @@
-using ZXingCPP:
-    bytes,
-    content_type,
-    error_type,
-    format,
-    has_eci,
-    is_valid,
-    line_count,
-    orientation,
-    text
-
 @testset "Barcodes" begin
     data_str = "0000101000101101011110111101011011101010100111011100101000100101110010100000"
     data_len = length(data_str)

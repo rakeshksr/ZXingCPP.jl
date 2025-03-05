@@ -1,11 +1,3 @@
-using ZXingCPP:
-    get_formats,
-    get_is_pure,
-    get_text_mode,
-    get_try_harder,
-    set_formats!,
-    set_try_harder!
-
 @testset "Reader Options" begin
     ro1 = ReaderOptions()
 

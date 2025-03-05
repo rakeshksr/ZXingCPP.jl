@@ -1,16 +1,3 @@
-using ZXingCPP:
-    get_reader_init,
-    set_reader_init!,
-
-    # Barcode methods
-    bytes,
-    content_type,
-    error_type,
-    format,
-    has_eci,
-    is_valid,
-    text
-
 @testset "Creator Options" begin
     co1 = CreatorOptions(ZXing_BarcodeFormat_QRCode)
     @test get_reader_init(co1) == false
