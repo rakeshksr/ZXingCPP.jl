@@ -1,7 +1,7 @@
 name = "ZXingCPP"
 uuid = "ffcb3a2f-c869-4483-b5bf-82d7b239c77e"
 authors = ["rakeshksr and contributors"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 CEnum = "fa961155-64e5-5f13-b03f-caf6b980ea82"
