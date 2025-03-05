@@ -17,23 +17,27 @@ mutable struct Barcode
 end
 
 is_valid(barcode::Barcode) = ZXing_Barcode_isValid(barcode.ptr)
-
-# To-Do
-# error_type(barcode::Barcode) = ZXing_Barcode_errorType(barcode.ptr)
-# error_msg(barcode::Barcode) = unsafe_string(ZXing_Barcode_errorMsg(barcode.ptr))
-
+error_type(barcode::Barcode) = ZXing_Barcode_errorType(barcode.ptr)
+error_msg(barcode::Barcode) = unsafe_string(ZXing_Barcode_errorMsg(barcode.ptr))
 format(barcode::Barcode) = ZXing_Barcode_format(barcode.ptr)
+content_type(barcode::Barcode) = ZXing_Barcode_contentType(barcode.ptr)
 
-# To-Do
-# format(barcode::Barcode) = ZXing_Barcode_format(barcode.ptr)
-# content_type(barcode::Barcode) = ZXing_Barcode_contentType(barcode.ptr)
-# bytes(barcode::Barcode) = ZXing_Barcode_bytes(barcode.ptr, len)
-# bytes_eci(barcode::Barcode) = ZXing_Barcode_bytesECI(barcode.ptr, len)
+function bytes(barcode::Barcode)
+    len = Ref{Int32}(0)
+    bytes_ptr = ZXing_Barcode_bytes(barcode.ptr, len)
+    return unsafe_wrap(Array, bytes_ptr, len[])
+end
+
+function bytes_eci(barcode::Barcode)
+    len = Ref{Int32}(0)
+    bytes_ptr = ZXing_Barcode_bytesECI(barcode.ptr, len)
+    return unsafe_wrap(Array, bytes_ptr, len[])
+end
 
 text(barcode::Barcode) = unsafe_string(ZXing_Barcode_text(barcode.ptr))
 ec_level(barcode::Barcode) = unsafe_string(ZXing_Barcode_ecLevel(barcode.ptr))
 symbology_identifier(barcode::Barcode) = unsafe_string(ZXing_Barcode_symbologyIdentifier(barcode.ptr))
-position(barcode::Barcode) = ZXing_Barcode_position(barcode.ptr)
+Base.position(barcode::Barcode) = ZXing_Barcode_position(barcode.ptr)
 orientation(barcode::Barcode) = ZXing_Barcode_orientation(barcode.ptr)
 has_eci(barcode::Barcode) = ZXing_Barcode_hasECI(barcode.ptr)
 is_inverted(barcode::Barcode) = ZXing_Barcode_isInverted(barcode.ptr)

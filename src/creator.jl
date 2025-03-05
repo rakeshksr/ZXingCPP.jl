@@ -56,11 +56,18 @@ CreatorOptions(
     )
 end
 
-create_barcode_from_text(data::String, size::Int32, opts::CreatorOptions) = Barcode(ZXing_CreateBarcodeFromText(data, size, opts.ptr))
-create_barcode_from_text(data::String, opts::CreatorOptions) = Barcode(ZXing_CreateBarcodeFromText(data, 0, opts.ptr))
-Barcode(data::String, size::Int32, opts::CreatorOptions) = create_barcode_from_text(data, size, opts)
+create_barcode_from_text(data::String, sz::Int32, opts::CreatorOptions) = Barcode(ZXing_CreateBarcodeFromText(data, sz, opts.ptr))
+create_barcode_from_text(data::String, opts::CreatorOptions) = create_barcode_from_text(data, Int32(0), opts)
+function create_barcode_from_bytes(data::AbstractArray{UInt8}, sz::Int32, opts::CreatorOptions)
+    data_ptr = pointer(data)
+    Barcode(ZXing_CreateBarcodeFromBytes(data_ptr, sz, opts.ptr))
+end
+function create_barcode_from_bytes(data::AbstractArray{UInt8}, opts::CreatorOptions)
+    sz = Int32(length(data))
+    return create_barcode_from_bytes(data, sz, opts)
+end
+
+Barcode(data::String, sz::Int32, opts::CreatorOptions) = create_barcode_from_text(data, sz, opts)
 Barcode(data::String, opts::CreatorOptions) = create_barcode_from_text(data, opts)
-# To-Do
-# function ZXing_CreateBarcodeFromBytes(data, size, opts)
-#     @ccall libZXing.ZXing_CreateBarcodeFromBytes(data::Ptr{Cvoid}, size::Cint, opts::Ptr{ZXing_CreatorOptions})::Ptr{ZXing_Barcode}
-# end
+Barcode(data::AbstractArray{UInt8}, sz::Int32, opts::CreatorOptions) = create_barcode_from_bytes(data, sz, opts)
+Barcode(data::AbstractArray{UInt8}, opts::CreatorOptions) = create_barcode_from_bytes(data, opts)
