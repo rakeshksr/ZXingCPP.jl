@@ -59,38 +59,15 @@ Barcode(
 end
 
 # Barcodes
-# create_zxing_ptr_struct(:Barcodes, :ZXing_Barcodes)
-mutable struct Barcodes
-    ptr::Ptr{ZXing_Barcodes}
+const Barcodes = Array{Barcode,1}
 
-    function Barcodes(ptr::Ptr{ZXing_Barcodes})
-        obj = new(ptr)
-        finalizer(obj) do obj
-            ZXing_Barcodes_delete(obj.ptr)
-        end
+function Barcodes(bcs::Ptr{ZXing_Barcodes})
+    len = ZXing_Barcodes_size(bcs)
+    barcodes = Barcodes(undef, len)
+    for i = 1:len
+        bc = Barcode(ZXing_Barcodes_move(bcs, i - 1))
+        barcodes[i] = bc
     end
-end
-
-Base.eltype(::Type{Barcodes}) = Barcode
-Base.length(barcodes::Barcodes) = ZXing_Barcodes_size(barcodes.ptr)
-
-function Base.getindex(barcodes::Barcodes, i::Int)
-    1 <= i <= length(barcodes) || throw(BoundsError(barcodes, i))
-    ptr = ZXing_Barcodes_at(barcodes.ptr, i - 1)
-    return Barcode(ptr)
-end
-Base.getindex(barcodes::Barcodes, i::Number) = barcodes[convert(Int, i)]
-
-Base.firstindex(barcodes::Barcodes) = 1
-Base.lastindex(barcodes::Barcodes) = length(barcodes)
-
-Base.iterate(barcodes::Barcodes, state=1) = state > length(barcodes) ? nothing : (barcodes[state], state + 1)
-
-function Base.show(io::IO, barcodes::Barcodes)
-    println(io, "Barcodes[")
-    for barcode in barcodes
-        show(io, barcode)
-        println(io, ",")
-    end
-    print(io, "]")
+    ZXing_Barcodes_delete(bcs)
+    return barcodes
 end
