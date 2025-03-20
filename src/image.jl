@@ -9,18 +9,20 @@ mutable struct ImageView
     end
 end
 
-function ImageView(data::Ptr{UInt8}, width::Integer, height::Integer, fmt::ZXing_ImageFormat, row_stride=0, pix_stride=0)
+function ImageView(data::Ptr{UInt8}, width::Integer, height::Integer,
+        fmt::ZXing_ImageFormat, row_stride = 0, pix_stride = 0)
     ptr = ZXing_ImageView_new(data, width, height, fmt, row_stride, pix_stride)
     return ImageView(ptr)
 end
 
-function ImageView(data::AbstractArray{UInt8}, width::Integer, height::Integer, fmt::ZXing_ImageFormat, row_stride=0, pix_stride=0)
+function ImageView(data::AbstractArray{UInt8}, width::Integer, height::Integer,
+        fmt::ZXing_ImageFormat, row_stride = 0, pix_stride = 0)
     s = length(data)
     ptr = ZXing_ImageView_new_checked(data, s, width, height, fmt, row_stride, pix_stride)
     return ImageView(ptr)
 end
 
-function ImageView(data::AbstractMatrix{UInt8}, row_stride=0, pix_stride=0)
+function ImageView(data::AbstractMatrix{UInt8}, row_stride = 0, pix_stride = 0)
     h = size(data, 1)
     w = size(data, 2)
     s = length(data)
@@ -29,7 +31,9 @@ function ImageView(data::AbstractMatrix{UInt8}, row_stride=0, pix_stride=0)
     return ImageView(ptr)
 end
 
-crop!(iv::ImageView, left::Integer, top::Integer, width::Integer, height::Integer) = ZXing_ImageView_crop(iv.ptr, left, top, width, height)
+function crop!(iv::ImageView, left::Integer, top::Integer, width::Integer, height::Integer)
+    ZXing_ImageView_crop(iv.ptr, left, top, width, height)
+end
 rotate!(iv::ImageView, degree::Integer) = ZXing_ImageView_rotate(iv.ptr, degree)
 
 mutable struct Image

@@ -32,11 +32,16 @@ mutable struct ZXing_WriterOptions end
 end
 
 function ZXing_ImageView_new(data, width, height, format, rowStride, pixStride)
-    @ccall libZXing.ZXing_ImageView_new(data::Ptr{UInt8}, width::Cint, height::Cint, format::ZXing_ImageFormat, rowStride::Cint, pixStride::Cint)::Ptr{ZXing_ImageView}
+    @ccall libZXing.ZXing_ImageView_new(
+        data::Ptr{UInt8}, width::Cint, height::Cint, format::ZXing_ImageFormat,
+        rowStride::Cint, pixStride::Cint)::Ptr{ZXing_ImageView}
 end
 
-function ZXing_ImageView_new_checked(data, size, width, height, format, rowStride, pixStride)
-    @ccall libZXing.ZXing_ImageView_new_checked(data::Ptr{UInt8}, size::Cint, width::Cint, height::Cint, format::ZXing_ImageFormat, rowStride::Cint, pixStride::Cint)::Ptr{ZXing_ImageView}
+function ZXing_ImageView_new_checked(
+        data, size, width, height, format, rowStride, pixStride)
+    @ccall libZXing.ZXing_ImageView_new_checked(
+        data::Ptr{UInt8}, size::Cint, width::Cint, height::Cint,
+        format::ZXing_ImageFormat, rowStride::Cint, pixStride::Cint)::Ptr{ZXing_ImageView}
 end
 
 function ZXing_ImageView_delete(iv)
@@ -44,7 +49,8 @@ function ZXing_ImageView_delete(iv)
 end
 
 function ZXing_ImageView_crop(iv, left, top, width, height)
-    @ccall libZXing.ZXing_ImageView_crop(iv::Ptr{ZXing_ImageView}, left::Cint, top::Cint, width::Cint, height::Cint)::Cvoid
+    @ccall libZXing.ZXing_ImageView_crop(
+        iv::Ptr{ZXing_ImageView}, left::Cint, top::Cint, width::Cint, height::Cint)::Cvoid
 end
 
 function ZXing_ImageView_rotate(iv, degree)
@@ -181,11 +187,13 @@ function ZXing_Barcode_contentType(barcode)
 end
 
 function ZXing_Barcode_bytes(barcode, len)
-    @ccall libZXing.ZXing_Barcode_bytes(barcode::Ptr{ZXing_Barcode}, len::Ptr{Cint})::Ptr{UInt8}
+    @ccall libZXing.ZXing_Barcode_bytes(
+        barcode::Ptr{ZXing_Barcode}, len::Ptr{Cint})::Ptr{UInt8}
 end
 
 function ZXing_Barcode_bytesECI(barcode, len)
-    @ccall libZXing.ZXing_Barcode_bytesECI(barcode::Ptr{ZXing_Barcode}, len::Ptr{Cint})::Ptr{UInt8}
+    @ccall libZXing.ZXing_Barcode_bytesECI(
+        barcode::Ptr{ZXing_Barcode}, len::Ptr{Cint})::Ptr{UInt8}
 end
 
 function ZXing_Barcode_text(barcode)
@@ -237,11 +245,13 @@ function ZXing_Barcodes_size(barcodes)
 end
 
 function ZXing_Barcodes_at(barcodes, i)
-    @ccall libZXing.ZXing_Barcodes_at(barcodes::Ptr{ZXing_Barcodes}, i::Cint)::Ptr{ZXing_Barcode}
+    @ccall libZXing.ZXing_Barcodes_at(
+        barcodes::Ptr{ZXing_Barcodes}, i::Cint)::Ptr{ZXing_Barcode}
 end
 
 function ZXing_Barcodes_move(barcodes, i)
-    @ccall libZXing.ZXing_Barcodes_move(barcodes::Ptr{ZXing_Barcodes}, i::Cint)::Ptr{ZXing_Barcode}
+    @ccall libZXing.ZXing_Barcodes_move(
+        barcodes::Ptr{ZXing_Barcodes}, i::Cint)::Ptr{ZXing_Barcode}
 end
 
 @cenum ZXing_Binarizer::UInt32 begin
@@ -275,51 +285,63 @@ function ZXing_ReaderOptions_delete(opts)
 end
 
 function ZXing_ReaderOptions_setTryHarder(opts, tryHarder)
-    @ccall libZXing.ZXing_ReaderOptions_setTryHarder(opts::Ptr{ZXing_ReaderOptions}, tryHarder::Bool)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setTryHarder(
+        opts::Ptr{ZXing_ReaderOptions}, tryHarder::Bool)::Cvoid
 end
 
 function ZXing_ReaderOptions_setTryRotate(opts, tryRotate)
-    @ccall libZXing.ZXing_ReaderOptions_setTryRotate(opts::Ptr{ZXing_ReaderOptions}, tryRotate::Bool)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setTryRotate(
+        opts::Ptr{ZXing_ReaderOptions}, tryRotate::Bool)::Cvoid
 end
 
 function ZXing_ReaderOptions_setTryInvert(opts, tryInvert)
-    @ccall libZXing.ZXing_ReaderOptions_setTryInvert(opts::Ptr{ZXing_ReaderOptions}, tryInvert::Bool)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setTryInvert(
+        opts::Ptr{ZXing_ReaderOptions}, tryInvert::Bool)::Cvoid
 end
 
 function ZXing_ReaderOptions_setTryDownscale(opts, tryDownscale)
-    @ccall libZXing.ZXing_ReaderOptions_setTryDownscale(opts::Ptr{ZXing_ReaderOptions}, tryDownscale::Bool)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setTryDownscale(
+        opts::Ptr{ZXing_ReaderOptions}, tryDownscale::Bool)::Cvoid
 end
 
 function ZXing_ReaderOptions_setIsPure(opts, isPure)
-    @ccall libZXing.ZXing_ReaderOptions_setIsPure(opts::Ptr{ZXing_ReaderOptions}, isPure::Bool)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setIsPure(
+        opts::Ptr{ZXing_ReaderOptions}, isPure::Bool)::Cvoid
 end
 
 function ZXing_ReaderOptions_setReturnErrors(opts, returnErrors)
-    @ccall libZXing.ZXing_ReaderOptions_setReturnErrors(opts::Ptr{ZXing_ReaderOptions}, returnErrors::Bool)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setReturnErrors(
+        opts::Ptr{ZXing_ReaderOptions}, returnErrors::Bool)::Cvoid
 end
 
 function ZXing_ReaderOptions_setFormats(opts, formats)
-    @ccall libZXing.ZXing_ReaderOptions_setFormats(opts::Ptr{ZXing_ReaderOptions}, formats::ZXing_BarcodeFormats)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setFormats(
+        opts::Ptr{ZXing_ReaderOptions}, formats::ZXing_BarcodeFormats)::Cvoid
 end
 
 function ZXing_ReaderOptions_setBinarizer(opts, binarizer)
-    @ccall libZXing.ZXing_ReaderOptions_setBinarizer(opts::Ptr{ZXing_ReaderOptions}, binarizer::ZXing_Binarizer)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setBinarizer(
+        opts::Ptr{ZXing_ReaderOptions}, binarizer::ZXing_Binarizer)::Cvoid
 end
 
 function ZXing_ReaderOptions_setEanAddOnSymbol(opts, eanAddOnSymbol)
-    @ccall libZXing.ZXing_ReaderOptions_setEanAddOnSymbol(opts::Ptr{ZXing_ReaderOptions}, eanAddOnSymbol::ZXing_EanAddOnSymbol)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setEanAddOnSymbol(
+        opts::Ptr{ZXing_ReaderOptions}, eanAddOnSymbol::ZXing_EanAddOnSymbol)::Cvoid
 end
 
 function ZXing_ReaderOptions_setTextMode(opts, textMode)
-    @ccall libZXing.ZXing_ReaderOptions_setTextMode(opts::Ptr{ZXing_ReaderOptions}, textMode::ZXing_TextMode)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setTextMode(
+        opts::Ptr{ZXing_ReaderOptions}, textMode::ZXing_TextMode)::Cvoid
 end
 
 function ZXing_ReaderOptions_setMinLineCount(opts, n)
-    @ccall libZXing.ZXing_ReaderOptions_setMinLineCount(opts::Ptr{ZXing_ReaderOptions}, n::Cint)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setMinLineCount(
+        opts::Ptr{ZXing_ReaderOptions}, n::Cint)::Cvoid
 end
 
 function ZXing_ReaderOptions_setMaxNumberOfSymbols(opts, n)
-    @ccall libZXing.ZXing_ReaderOptions_setMaxNumberOfSymbols(opts::Ptr{ZXing_ReaderOptions}, n::Cint)::Cvoid
+    @ccall libZXing.ZXing_ReaderOptions_setMaxNumberOfSymbols(
+        opts::Ptr{ZXing_ReaderOptions}, n::Cint)::Cvoid
 end
 
 function ZXing_ReaderOptions_getTryHarder(opts)
@@ -376,7 +398,8 @@ end
 Note: opts is optional, i.e. it can be NULL, which will imply default settings.
 """
 function ZXing_ReadBarcodes(iv, opts)
-    @ccall libZXing.ZXing_ReadBarcodes(iv::Ptr{ZXing_ImageView}, opts::Ptr{ZXing_ReaderOptions})::Ptr{ZXing_Barcodes}
+    @ccall libZXing.ZXing_ReadBarcodes(
+        iv::Ptr{ZXing_ImageView}, opts::Ptr{ZXing_ReaderOptions})::Ptr{ZXing_Barcodes}
 end
 
 function ZXing_CreatorOptions_new(format)
@@ -388,7 +411,8 @@ function ZXing_CreatorOptions_delete(opts)
 end
 
 function ZXing_CreatorOptions_setFormat(opts, format)
-    @ccall libZXing.ZXing_CreatorOptions_setFormat(opts::Ptr{ZXing_CreatorOptions}, format::ZXing_BarcodeFormat)::Cvoid
+    @ccall libZXing.ZXing_CreatorOptions_setFormat(
+        opts::Ptr{ZXing_CreatorOptions}, format::ZXing_BarcodeFormat)::Cvoid
 end
 
 function ZXing_CreatorOptions_getFormat(opts)
@@ -396,7 +420,8 @@ function ZXing_CreatorOptions_getFormat(opts)
 end
 
 function ZXing_CreatorOptions_setReaderInit(opts, readerInit)
-    @ccall libZXing.ZXing_CreatorOptions_setReaderInit(opts::Ptr{ZXing_CreatorOptions}, readerInit::Bool)::Cvoid
+    @ccall libZXing.ZXing_CreatorOptions_setReaderInit(
+        opts::Ptr{ZXing_CreatorOptions}, readerInit::Bool)::Cvoid
 end
 
 function ZXing_CreatorOptions_getReaderInit(opts)
@@ -404,7 +429,8 @@ function ZXing_CreatorOptions_getReaderInit(opts)
 end
 
 function ZXing_CreatorOptions_setForceSquareDataMatrix(opts, forceSquareDataMatrix)
-    @ccall libZXing.ZXing_CreatorOptions_setForceSquareDataMatrix(opts::Ptr{ZXing_CreatorOptions}, forceSquareDataMatrix::Bool)::Cvoid
+    @ccall libZXing.ZXing_CreatorOptions_setForceSquareDataMatrix(
+        opts::Ptr{ZXing_CreatorOptions}, forceSquareDataMatrix::Bool)::Cvoid
 end
 
 function ZXing_CreatorOptions_getForceSquareDataMatrix(opts)
@@ -412,7 +438,8 @@ function ZXing_CreatorOptions_getForceSquareDataMatrix(opts)
 end
 
 function ZXing_CreatorOptions_setEcLevel(opts, ecLevel)
-    @ccall libZXing.ZXing_CreatorOptions_setEcLevel(opts::Ptr{ZXing_CreatorOptions}, ecLevel::Cstring)::Cvoid
+    @ccall libZXing.ZXing_CreatorOptions_setEcLevel(
+        opts::Ptr{ZXing_CreatorOptions}, ecLevel::Cstring)::Cvoid
 end
 
 function ZXing_CreatorOptions_getEcLevel(opts)
@@ -429,7 +456,8 @@ function ZXing_WriterOptions_delete(opts)
 end
 
 function ZXing_WriterOptions_setScale(opts, scale)
-    @ccall libZXing.ZXing_WriterOptions_setScale(opts::Ptr{ZXing_WriterOptions}, scale::Cint)::Cvoid
+    @ccall libZXing.ZXing_WriterOptions_setScale(
+        opts::Ptr{ZXing_WriterOptions}, scale::Cint)::Cvoid
 end
 
 function ZXing_WriterOptions_getScale(opts)
@@ -437,7 +465,8 @@ function ZXing_WriterOptions_getScale(opts)
 end
 
 function ZXing_WriterOptions_setSizeHint(opts, sizeHint)
-    @ccall libZXing.ZXing_WriterOptions_setSizeHint(opts::Ptr{ZXing_WriterOptions}, sizeHint::Cint)::Cvoid
+    @ccall libZXing.ZXing_WriterOptions_setSizeHint(
+        opts::Ptr{ZXing_WriterOptions}, sizeHint::Cint)::Cvoid
 end
 
 function ZXing_WriterOptions_getSizeHint(opts)
@@ -445,7 +474,8 @@ function ZXing_WriterOptions_getSizeHint(opts)
 end
 
 function ZXing_WriterOptions_setRotate(opts, rotate)
-    @ccall libZXing.ZXing_WriterOptions_setRotate(opts::Ptr{ZXing_WriterOptions}, rotate::Cint)::Cvoid
+    @ccall libZXing.ZXing_WriterOptions_setRotate(
+        opts::Ptr{ZXing_WriterOptions}, rotate::Cint)::Cvoid
 end
 
 function ZXing_WriterOptions_getRotate(opts)
@@ -453,7 +483,8 @@ function ZXing_WriterOptions_getRotate(opts)
 end
 
 function ZXing_WriterOptions_setWithHRT(opts, withHRT)
-    @ccall libZXing.ZXing_WriterOptions_setWithHRT(opts::Ptr{ZXing_WriterOptions}, withHRT::Bool)::Cvoid
+    @ccall libZXing.ZXing_WriterOptions_setWithHRT(
+        opts::Ptr{ZXing_WriterOptions}, withHRT::Bool)::Cvoid
 end
 
 function ZXing_WriterOptions_getWithHRT(opts)
@@ -461,7 +492,8 @@ function ZXing_WriterOptions_getWithHRT(opts)
 end
 
 function ZXing_WriterOptions_setWithQuietZones(opts, withQuietZones)
-    @ccall libZXing.ZXing_WriterOptions_setWithQuietZones(opts::Ptr{ZXing_WriterOptions}, withQuietZones::Bool)::Cvoid
+    @ccall libZXing.ZXing_WriterOptions_setWithQuietZones(
+        opts::Ptr{ZXing_WriterOptions}, withQuietZones::Bool)::Cvoid
 end
 
 function ZXing_WriterOptions_getWithQuietZones(opts)
@@ -469,11 +501,13 @@ function ZXing_WriterOptions_getWithQuietZones(opts)
 end
 
 function ZXing_CreateBarcodeFromText(data, size, opts)
-    @ccall libZXing.ZXing_CreateBarcodeFromText(data::Cstring, size::Cint, opts::Ptr{ZXing_CreatorOptions})::Ptr{ZXing_Barcode}
+    @ccall libZXing.ZXing_CreateBarcodeFromText(
+        data::Cstring, size::Cint, opts::Ptr{ZXing_CreatorOptions})::Ptr{ZXing_Barcode}
 end
 
 function ZXing_CreateBarcodeFromBytes(data, size, opts)
-    @ccall libZXing.ZXing_CreateBarcodeFromBytes(data::Ptr{Cvoid}, size::Cint, opts::Ptr{ZXing_CreatorOptions})::Ptr{ZXing_Barcode}
+    @ccall libZXing.ZXing_CreateBarcodeFromBytes(
+        data::Ptr{Cvoid}, size::Cint, opts::Ptr{ZXing_CreatorOptions})::Ptr{ZXing_Barcode}
 end
 
 """
@@ -482,11 +516,13 @@ end
 Note: opts is optional, i.e. it can be NULL, which will imply default settings.
 """
 function ZXing_WriteBarcodeToSVG(barcode, opts)
-    @ccall libZXing.ZXing_WriteBarcodeToSVG(barcode::Ptr{ZXing_Barcode}, opts::Ptr{ZXing_WriterOptions})::Cstring
+    @ccall libZXing.ZXing_WriteBarcodeToSVG(
+        barcode::Ptr{ZXing_Barcode}, opts::Ptr{ZXing_WriterOptions})::Cstring
 end
 
 function ZXing_WriteBarcodeToImage(barcode, opts)
-    @ccall libZXing.ZXing_WriteBarcodeToImage(barcode::Ptr{ZXing_Barcode}, opts::Ptr{ZXing_WriterOptions})::Ptr{ZXing_Image}
+    @ccall libZXing.ZXing_WriteBarcodeToImage(
+        barcode::Ptr{ZXing_Barcode}, opts::Ptr{ZXing_WriterOptions})::Ptr{ZXing_Image}
 end
 
 # no prototype is found for this function at ZXingC.h:313:7, please use with caution
@@ -505,7 +541,7 @@ end
 
 # exports
 const PREFIXES = ["ZXing_"]
-for name in names(@__MODULE__; all=true), prefix in PREFIXES
+for name in names(@__MODULE__; all = true), prefix in PREFIXES
     if startswith(string(name), prefix)
         @eval export $name
     end

@@ -31,7 +31,9 @@ end
 
 text(barcode::Barcode) = unsafe_string(ZXing_Barcode_text(barcode.ptr))
 ec_level(barcode::Barcode) = unsafe_string(ZXing_Barcode_ecLevel(barcode.ptr))
-symbology_identifier(barcode::Barcode) = unsafe_string(ZXing_Barcode_symbologyIdentifier(barcode.ptr))
+function symbology_identifier(barcode::Barcode)
+    unsafe_string(ZXing_Barcode_symbologyIdentifier(barcode.ptr))
+end
 Base.position(barcode::Barcode) = ZXing_Barcode_position(barcode.ptr)
 orientation(barcode::Barcode) = ZXing_Barcode_orientation(barcode.ptr)
 has_eci(barcode::Barcode) = ZXing_Barcode_hasECI(barcode.ptr)
@@ -54,12 +56,12 @@ Barcode(
 end
 
 # Barcodes
-const Barcodes = Array{Barcode,1}
+const Barcodes = Array{Barcode, 1}
 
 function Barcodes(bcs::Ptr{ZXing_Barcodes})
     len = ZXing_Barcodes_size(bcs)
     barcodes = Barcodes(undef, len)
-    for i = 1:len
+    for i in 1:len
         bc = Barcode(ZXing_Barcodes_move(bcs, i - 1))
         barcodes[i] = bc
     end

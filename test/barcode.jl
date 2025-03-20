@@ -10,7 +10,7 @@
     expected = "96385074"
 
     iv = ImageView(data, data_len, 1, ZXing_ImageFormat_Lum)
-    ro = ReaderOptions(; binarizer=ZXing_Binarizer_BoolCast)
+    ro = ReaderOptions(; binarizer = ZXing_Binarizer_BoolCast)
     bcs = read_barcodes(iv, ro)
     bc = bcs[1]
 

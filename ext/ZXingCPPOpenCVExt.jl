@@ -24,6 +24,9 @@ function ZXingCPP.ImageView(img::OpenCV.Mat{UInt8})
     return ZXingCPP.ImageView(img, w, h, fmt)
 end
 
-ZXingCPP.read_barcodes(img::OpenCV.Mat{UInt8}, opts::ReaderOptions=ReaderOptions()) = read_barcodes(ImageView(img), opts)
+function ZXingCPP.read_barcodes(
+        img::OpenCV.Mat{UInt8}, opts::ReaderOptions = ReaderOptions())
+    read_barcodes(ImageView(img), opts)
+end
 
 end

@@ -20,14 +20,14 @@ end
     @test symbology_identifier(res1) == "]Q1"
     @test position(res1).topLeft.x == 4
 
-    res2 = read_barcodes(iv, ReaderOptions(; formats=fmt))[1]
+    res2 = read_barcodes(iv, ReaderOptions(; formats = fmt))[1]
     check(res2, fmt, txt)
 end
 
 @testset "Empty Barcodes" begin
     iv = ImageView(zeros(UInt8, 0, 0), ZXing_ImageFormat_Lum)
     fmt = ZXing_BarcodeFormat_QRCode
-    bcs = read_barcodes(iv, ReaderOptions(; formats=fmt))
+    bcs = read_barcodes(iv, ReaderOptions(; formats = fmt))
     @test length(bcs) == 0
 end
 

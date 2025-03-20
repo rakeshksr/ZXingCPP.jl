@@ -10,7 +10,7 @@
     set_try_harder!(ro1, false)
     @test get_try_harder(ro1) == false
 
-    ro2 = ReaderOptions(; is_pure=true, text_mode=ZXing_TextMode_Hex)
+    ro2 = ReaderOptions(; is_pure = true, text_mode = ZXing_TextMode_Hex)
 
     @test get_formats(ro2) == ZXing_BarcodeFormat_None
     @test get_try_harder(ro2) == true

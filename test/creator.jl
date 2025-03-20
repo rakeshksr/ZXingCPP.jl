@@ -5,7 +5,7 @@
     @test get_reader_init(co1) == true
 
     str = "123456"
-    bc1 = Barcode(str, CreatorOptions(ZXing_BarcodeFormat_QRCode; ec_level="Q"))
+    bc1 = Barcode(str, CreatorOptions(ZXing_BarcodeFormat_QRCode; ec_level = "Q"))
     @test is_valid(bc1) == true
     @test format(bc1) == ZXing_BarcodeFormat_QRCode
     @test text(bc1) == str
@@ -14,7 +14,7 @@
     @test content_type(bc1) == ZXing_ContentType_Text
     @test error_type(bc1) == ZXing_ErrorType_None
 
-    co2 = CreatorOptions(ZXing_BarcodeFormat_QRCode; reader_init=true)
+    co2 = CreatorOptions(ZXing_BarcodeFormat_QRCode; reader_init = true)
     @test get_reader_init(co2) == true
 
     data = UInt8[1, 2, 3, 4, 5]
