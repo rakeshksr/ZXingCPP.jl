@@ -1,6 +1,9 @@
 # ZXingCPP
 
 [![Build Status](https://github.com/rakeshksr/ZXingCPP.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/rakeshksr/ZXingCPP.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![SciML Code Style](https://img.shields.io/static/v1?label=code%20style&message=SciML&color=9558b2&labelColor=389826)](https://github.com/SciML/SciMLStyle)
+[![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/rakeshksr/ZXingCPP.jl/blob/main/LICENSE)
 
 
 ZXingCPP.jl is a Julia wrapper for the C++ library [zxing-cpp](https://github.com/zxing-cpp/zxing-cpp). It is an open-source, multi-format linear/matrix barcode image processing library implemented in C++.
