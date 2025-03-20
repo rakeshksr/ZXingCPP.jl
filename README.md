@@ -31,6 +31,6 @@ OpenCV.imwrite("barcode.png", cvimg)
 ```julia
 img = OpenCV.imread("barcode.png", OpenCV.IMREAD_UNCHANGED)
 ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
-bcs = read_barcodes(cvimg)
+bcs = read_barcodes(img, ro)
 print(bcs)
 ```
