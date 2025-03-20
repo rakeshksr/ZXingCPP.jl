@@ -27,6 +27,7 @@ using ZXingCPP: # Barcode
                 set_try_harder!
 
 @testset "ZXingCPP.jl" begin
+    include("aqua.jl")
     include("barcode_format.jl")
     include("barcode.jl")
     include("creator.jl")
