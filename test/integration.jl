@@ -39,3 +39,12 @@ end
     opencv_img = OpenCV.Mat(img)
     check(read_barcodes(opencv_img)[1], fmt, txt)
 end
+
+@testset "Images" begin
+    fmt = ZXing_BarcodeFormat_QRCode
+    txt = "Hello World"
+    bc = Barcode(txt, CreatorOptions(fmt))
+    img = write_barcode_to_image(bc)
+    jimg = Matrix(img)
+    check(read_barcodes(jimg)[1], fmt, txt)
+end

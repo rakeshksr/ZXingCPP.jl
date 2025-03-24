@@ -9,14 +9,17 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 ZXing_CPP_jll = "66b684e8-4fb7-5952-97a4-a506b1089b62"
 
 [weakdeps]
+ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 OpenCV = "f878e3a2-a245-4720-8660-60795d644f2a"
 
 [extensions]
+ZXingCPPImagesExt = "ImageCore"
 ZXingCPPOpenCVExt = "OpenCV"
 
 [compat]
 Aqua = "0.8.11"
 CEnum = "0.5.0"
+ImageCore = "0.10.5"
 OpenCV = "4.6.0"
 Reexport = "1.2.2"
 Test = "1"
@@ -28,4 +31,4 @@ Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Test", "Aqua", "OpenCV"]
+test = ["Test", "Aqua", "ImageCore", "OpenCV"]

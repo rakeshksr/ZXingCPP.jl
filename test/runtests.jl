@@ -1,5 +1,6 @@
 using ZXingCPP
 using Test
+using ImageCore
 using OpenCV
 
 using ZXingCPP: # Barcode
