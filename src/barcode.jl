@@ -42,16 +42,25 @@ is_mirrored(barcode::Barcode) = ZXing_Barcode_isMirrored(barcode.ptr)
 line_count(barcode::Barcode) = ZXing_Barcode_lineCount(barcode.ptr)
 
 ## To-Do: Improve
-function Base.show(io::IO, barcode::Barcode)
+function Base.show(io::IO, ::MIME"text/plain", barcode::Barcode)
     fmt = string(format(barcode))
     txt = text(barcode)
     print(
         io,
         """
 Barcode(
-    Format: $(fmt)
     Text: $(txt)
+    Format: $(fmt)
 )"""
+    )
+end
+
+function Base.show(io::IO, barcode::Barcode)
+    fmt = string(format(barcode))
+    txt = text(barcode)
+    print(
+        io,
+        "Barcode(Text: $(txt), Format: $(fmt))"
     )
 end
 
