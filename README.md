@@ -10,30 +10,74 @@ ZXingCPP.jl is a Julia wrapper for the C++ library [zxing-cpp](https://github.co
 
 ZXingCPP.jl provides fast and accurate barcode detection, decoding and creation within Julia.
 
+ZXingCPP.jl integrated with [Images.jl](https://github.com/JuliaImages/Images.jl) and [OpenCV.jl](https://github.com/JuliaImages/OpenCV.jl). Both packages can used to read and write barcode images.
 
 ## Usage
+
+### Using Images.jl
+
 ```julia
 using ZXingCPP
-using OpenCV
+
+using ImageCore
+using FileIO
+using ImageIO
 ```
-### Create
+
+**Create:**
 ```julia
 f = ZXing_BarcodeFormat_QRCode
 co = CreatorOptions(f)
 bc = Barcode("HELLO WORLD", co)
 print(bc)
 ```
-### Write
+
+**Write:**
+```julia
+wo = WriterOptions(; scale=10)
+zimg = write_barcode_to_image(bc, wo)
+jimg = Matrix(zimg)
+save("barcode.png", jimg)
+```
+
+**Read:**
+```julia
+img = load("barcode.png")
+ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
+bcs = read_barcodes(img, ro)
+print(bcs)
+```
+
+Pluto notebook with annotation example using `Images.jl` found at [here](examples/annotation_images.jl)
+
+### Using OpenCV.jl
+
+```julia
+using ZXingCPP
+using OpenCV
+```
+**Create:**
+```julia
+f = ZXing_BarcodeFormat_QRCode
+co = CreatorOptions(f)
+bc = Barcode("HELLO WORLD", co)
+print(bc)
+```
+
+**Write:**
 ```julia
 wo = WriterOptions(; scale=10)
 zimg = write_barcode_to_image(bc, wo)
 cvimg = OpenCV.Mat(zimg)
 OpenCV.imwrite("barcode.png", cvimg)
 ```
-### Read
+
+**Read:**
 ```julia
 img = OpenCV.imread("barcode.png", OpenCV.IMREAD_UNCHANGED)
 ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
 bcs = read_barcodes(img, ro)
 print(bcs)
 ```
+
+Pluto notebook with annotation example using `OpenCV.jl` found at [here](examples/annotation_opencv.jl)
