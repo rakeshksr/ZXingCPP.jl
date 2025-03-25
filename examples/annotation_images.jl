@@ -8,14 +8,13 @@ using InteractiveUtils
 begin
     using ZXingCPP
     using ImageCore
-	using FileIO
-	using ImageIO
-	using ImageDraw
-	using ImageShow
+    using FileIO
+    using ImageIO
+    using ImageDraw
+    using ImageShow
 end
 
 # ╔═╡ 70c64eb8-b3ee-48c9-9b34-383a1e71661b
-
 
 # ╔═╡ c624d833-d854-40ff-8f14-5d48084770b0
 md"""
@@ -24,19 +23,18 @@ md"""
 
 # ╔═╡ 41ed8e96-b03f-419e-9ca5-26fd6a01d670
 begin
-	f = ZXing_BarcodeFormat_QRCode
+    f = ZXing_BarcodeFormat_QRCode
     co = CreatorOptions(f)
     b = Barcode("HELLO WORLD Images", co)
 end
 
 # ╔═╡ 5ffbe264-fbb0-43ff-a86f-187583cba8bf
 begin
-    s = write_barcode_to_svg(b, WriterOptions(; scale=10))
+    s = write_barcode_to_svg(b, WriterOptions(; scale = 10))
     HTML("$s<br>Format: $(string(ZXingCPP.format(b)))<br>Content: $(ZXingCPP.text(b))")
 end
 
 # ╔═╡ bd2e67ac-aa9c-4e3e-a739-feec8798a87f
-
 
 # ╔═╡ b490268b-d972-4e08-8497-d8c69919209b
 md"""
@@ -45,7 +43,7 @@ md"""
 
 # ╔═╡ 4e49a929-dbb2-4621-a31c-efa2414bf859
 begin
-    wo = WriterOptions(; scale=10)
+    wo = WriterOptions(; scale = 10)
     zimg = write_barcode_to_image(b, wo)
     jimg = Matrix(zimg)
 end
@@ -54,7 +52,6 @@ end
 save("barcode_images.png", jimg)
 
 # ╔═╡ bd6fca9b-07ed-4f4a-9483-cc4ce5dbfa3c
-
 
 # ╔═╡ 8aaff652-dd8f-46cb-9b7f-740c038359e2
 md"""
@@ -65,13 +62,12 @@ md"""
 img = load("barcode_images.png")
 
 # ╔═╡ f869f3d1-6cfa-45e4-9ab7-3b3526345acf
-ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
+ro = ReaderOptions(; formats = ZXing_BarcodeFormat_QRCode)
 
 # ╔═╡ 9e0027f0-90b8-4c21-bf6e-696ae710a55b
 bcs = read_barcodes(img)
 
 # ╔═╡ 8040fc7f-a41d-4d95-91a1-7725e2014142
-
 
 # ╔═╡ ca000500-0ed6-4879-9e5b-e5779beb3668
 md"""
@@ -82,15 +78,15 @@ md"""
 begin
     function draw_barcode!(img::Matrix{RGB{N0f8}}, bc::Barcode)
         pos = ZXingCPP.position(bc)
-		p1 = Point(pos.topLeft.x, pos.topLeft.y)
-		p2 = Point(pos.bottomRight.x, pos.bottomRight.y)
-		rp = RectanglePoints(p1, p2)
-		clr = RGB{N0f8}(0, 1, 0)
-		draw!(img, Polygon(rp), clr)
+        p1 = Point(pos.topLeft.x, pos.topLeft.y)
+        p2 = Point(pos.bottomRight.x, pos.bottomRight.y)
+        rp = RectanglePoints(p1, p2)
+        clr = RGB{N0f8}(0, 1, 0)
+        draw!(img, Polygon(rp), clr)
 
-		# ATM Images.jl ecosystem not support text annotation
-		# Needs to use other packages like Plots.jl or Makie.jl
-		# txt = ZXingCPP.text(bc)
+        # ATM Images.jl ecosystem not support text annotation
+        # Needs to use other packages like Plots.jl or Makie.jl
+        # txt = ZXingCPP.text(bc)
     end
     function draw_barcodes!(img::Matrix{RGB{N0f8}}, bcs::Barcodes)
         for bc in bcs
@@ -101,8 +97,8 @@ end
 
 # ╔═╡ 709f2ae6-20d5-4ebf-81b4-e1a2471a15db
 begin
-	clrimg = RGB.(img)
-	draw_barcodes!(clrimg, bcs)
+    clrimg = RGB.(img)
+    draw_barcodes!(clrimg, bcs)
 end
 
 # ╔═╡ bfe12d14-4911-4ae5-a07a-fdec4a375f78

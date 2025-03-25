@@ -14,19 +14,29 @@ end
 begin
     # Workaround for https://github.com/JuliaImages/OpenCV.jl/issues/18
 
-    using OpenCV: jlopencv_cv_cv_polylines, cpp_to_julia, julia_to_cpp, InputArray, Scalar, dtypes, cv_LINE_8
+    using OpenCV: jlopencv_cv_cv_polylines, cpp_to_julia, julia_to_cpp, InputArray, Scalar,
+                  dtypes, cv_LINE_8
 
-    function polylines(img::InputArray, pts::Vector{Array{T,3}}, isClosed::Bool, color::Scalar, thickness::Int64, lineType::Int64, shift::Int64) where {T<:dtypes}
-        return cpp_to_julia(jlopencv_cv_cv_polylines(julia_to_cpp(img), julia_to_cpp(pts), julia_to_cpp(isClosed), julia_to_cpp(color), julia_to_cpp(thickness), julia_to_cpp(lineType), julia_to_cpp(shift)))
+    function polylines(
+            img::InputArray, pts::Vector{Array{T, 3}}, isClosed::Bool, color::Scalar,
+            thickness::Int64, lineType::Int64, shift::Int64) where {T <: dtypes}
+        return cpp_to_julia(jlopencv_cv_cv_polylines(
+            julia_to_cpp(img), julia_to_cpp(pts), julia_to_cpp(isClosed),
+            julia_to_cpp(color), julia_to_cpp(thickness),
+            julia_to_cpp(lineType), julia_to_cpp(shift)))
     end
-    polylines(img::InputArray, pts::Vector{Array{T,3}}, isClosed::Bool, color::Scalar; thickness::Int64=Int64(1), lineType::Int64=Int64(cv_LINE_8), shift::Int64=Int64(0)) where {T<:dtypes} = polylines(img, pts, isClosed, color, thickness, lineType, shift)
+    function polylines(
+            img::InputArray, pts::Vector{Array{T, 3}}, isClosed::Bool, color::Scalar;
+            thickness::Int64 = Int64(1), lineType::Int64 = Int64(cv_LINE_8),
+            shift::Int64 = Int64(0)) where {T <: dtypes}
+        polylines(img, pts, isClosed, color, thickness, lineType, shift)
+    end
 end
 
 # ╔═╡ 4e02df86-a9da-40fe-b815-bf40f4486547
 const cv = OpenCV
 
 # ╔═╡ 70c64eb8-b3ee-48c9-9b34-383a1e71661b
-
 
 # ╔═╡ c624d833-d854-40ff-8f14-5d48084770b0
 md"""
@@ -35,19 +45,18 @@ md"""
 
 # ╔═╡ 41ed8e96-b03f-419e-9ca5-26fd6a01d670
 begin
-	f = ZXing_BarcodeFormat_QRCode
+    f = ZXing_BarcodeFormat_QRCode
     co = CreatorOptions(f)
     b = Barcode("HELLO WORLD OpenCV", co)
 end
 
 # ╔═╡ 5ffbe264-fbb0-43ff-a86f-187583cba8bf
 begin
-    s = write_barcode_to_svg(b, WriterOptions(; scale=10))
+    s = write_barcode_to_svg(b, WriterOptions(; scale = 10))
     HTML("$s<br>Format: $(string(ZXingCPP.format(b)))<br>Content: $(ZXingCPP.text(b))")
 end
 
 # ╔═╡ bd2e67ac-aa9c-4e3e-a739-feec8798a87f
-
 
 # ╔═╡ b490268b-d972-4e08-8497-d8c69919209b
 md"""
@@ -56,7 +65,7 @@ md"""
 
 # ╔═╡ 4e49a929-dbb2-4621-a31c-efa2414bf859
 begin
-    wo = WriterOptions(; scale=10)
+    wo = WriterOptions(; scale = 10)
     zimg = write_barcode_to_image(b, wo)
     cvimg = OpenCV.Mat(zimg)
 end
@@ -65,7 +74,6 @@ end
 cv.imwrite("barcode_opencv.png", cvimg)
 
 # ╔═╡ bd6fca9b-07ed-4f4a-9483-cc4ce5dbfa3c
-
 
 # ╔═╡ 8aaff652-dd8f-46cb-9b7f-740c038359e2
 md"""
@@ -76,13 +84,12 @@ md"""
 img = cv.imread("barcode_opencv.png", cv.IMREAD_UNCHANGED)
 
 # ╔═╡ f869f3d1-6cfa-45e4-9ab7-3b3526345acf
-ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
+ro = ReaderOptions(; formats = ZXing_BarcodeFormat_QRCode)
 
 # ╔═╡ 9e0027f0-90b8-4c21-bf6e-696ae710a55b
 bcs = read_barcodes(img)
 
 # ╔═╡ 8040fc7f-a41d-4d95-91a1-7725e2014142
-
 
 # ╔═╡ ca000500-0ed6-4879-9e5b-e5779beb3668
 md"""
@@ -93,26 +100,24 @@ md"""
 begin
     function draw_barcode!(img::cv.Mat{UInt8}, bc::Barcode)
         pos = ZXingCPP.position(bc)
-        ps = [
-            pos.topLeft.x pos.topRight.x pos.bottomRight.x pos.bottomLeft.x
-            pos.topLeft.y pos.topRight.y pos.bottomRight.y pos.bottomLeft.y
-        ]
+        ps = [pos.topLeft.x pos.topRight.x pos.bottomRight.x pos.bottomLeft.x
+              pos.topLeft.y pos.topRight.y pos.bottomRight.y pos.bottomLeft.y]
         pts = reshape(ps, (1, 2, :)) # (2, 1, :), (2, :, 1) also works
         txt = ZXingCPP.text(bc)
-		
-		# For annotation text from middle
+
+        # For annotation text from middle
         # p = cv.Point(
         #     trunc(Int32, (pos.bottomRight.x + pos.bottomLeft.x) / 2),
         #     pos.bottomRight.y + Int32(20)
         # )
 
-		# For annotation text from start
+        # For annotation text from start
         p = cv.Point(
-            pos.bottomLeft.x ,
+            pos.bottomLeft.x,
             pos.bottomRight.y + Int32(20)
         )
-		
-        polylines(img, [pts], true, (0, 255, 0), thickness=3)
+
+        polylines(img, [pts], true, (0, 255, 0), thickness = 3)
         cv.putText(img, txt, p, cv.FONT_HERSHEY_DUPLEX, 0.5, (0, 255, 0))
     end
     function draw_barcodes!(img::cv.Mat{UInt8}, bcs::Barcodes)
