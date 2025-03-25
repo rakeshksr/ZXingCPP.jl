@@ -24,4 +24,6 @@ export ReaderOptions, read_barcodes
 include("writer.jl")
 export WriterOptions, write_barcode_to_svg, write_barcode_to_image
 
+include("precompile.jl")
+
 end # module ZXingCPP
