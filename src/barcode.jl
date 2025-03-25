@@ -1,5 +1,4 @@
 # Barcode
-# create_zxing_ptr_struct(:Barcode, :ZXing_Barcode)
 mutable struct Barcode
     ptr::Ptr{ZXing_Barcode}
 
@@ -41,7 +40,6 @@ is_inverted(barcode::Barcode) = ZXing_Barcode_isInverted(barcode.ptr)
 is_mirrored(barcode::Barcode) = ZXing_Barcode_isMirrored(barcode.ptr)
 line_count(barcode::Barcode) = ZXing_Barcode_lineCount(barcode.ptr)
 
-## To-Do: Improve
 function Base.show(io::IO, ::MIME"text/plain", barcode::Barcode)
     fmt = string(format(barcode))
     txt = text(barcode)
