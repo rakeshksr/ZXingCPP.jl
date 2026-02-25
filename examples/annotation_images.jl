@@ -65,7 +65,7 @@ img = load("barcode_images.png")
 ro = ReaderOptions(; formats = ZXing_BarcodeFormat_QRCode)
 
 # ╔═╡ 9e0027f0-90b8-4c21-bf6e-696ae710a55b
-bcs = read_barcodes(img)
+bcs = read_barcodes(img, ro)
 
 # ╔═╡ 8040fc7f-a41d-4d95-91a1-7725e2014142
 
@@ -87,11 +87,13 @@ begin
         # ATM Images.jl ecosystem not support text annotation
         # Needs to use other packages like Plots.jl or Makie.jl
         # txt = ZXingCPP.text(bc)
+        return
     end
     function draw_barcodes!(img::Matrix{RGB{N0f8}}, bcs::Barcodes)
         for bc in bcs
             draw_barcode!(img, bc)
         end
+        return
     end
 end
 

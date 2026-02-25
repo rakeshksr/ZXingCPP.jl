@@ -15,21 +15,26 @@ begin
     # Workaround for https://github.com/JuliaImages/OpenCV.jl/issues/18
 
     using OpenCV: jlopencv_cv_cv_polylines, cpp_to_julia, julia_to_cpp, InputArray, Scalar,
-                  dtypes, cv_LINE_8
+        dtypes, cv_LINE_8
 
     function polylines(
             img::InputArray, pts::Vector{Array{T, 3}}, isClosed::Bool, color::Scalar,
-            thickness::Int64, lineType::Int64, shift::Int64) where {T <: dtypes}
-        return cpp_to_julia(jlopencv_cv_cv_polylines(
-            julia_to_cpp(img), julia_to_cpp(pts), julia_to_cpp(isClosed),
-            julia_to_cpp(color), julia_to_cpp(thickness),
-            julia_to_cpp(lineType), julia_to_cpp(shift)))
+            thickness::Int64, lineType::Int64, shift::Int64
+        ) where {T <: dtypes}
+        return cpp_to_julia(
+            jlopencv_cv_cv_polylines(
+                julia_to_cpp(img), julia_to_cpp(pts), julia_to_cpp(isClosed),
+                julia_to_cpp(color), julia_to_cpp(thickness),
+                julia_to_cpp(lineType), julia_to_cpp(shift)
+            )
+        )
     end
     function polylines(
             img::InputArray, pts::Vector{Array{T, 3}}, isClosed::Bool, color::Scalar;
             thickness::Int64 = Int64(1), lineType::Int64 = Int64(cv_LINE_8),
-            shift::Int64 = Int64(0)) where {T <: dtypes}
-        polylines(img, pts, isClosed, color, thickness, lineType, shift)
+            shift::Int64 = Int64(0)
+        ) where {T <: dtypes}
+        return polylines(img, pts, isClosed, color, thickness, lineType, shift)
     end
 end
 
@@ -87,7 +92,7 @@ img = cv.imread("barcode_opencv.png", cv.IMREAD_UNCHANGED)
 ro = ReaderOptions(; formats = ZXing_BarcodeFormat_QRCode)
 
 # ╔═╡ 9e0027f0-90b8-4c21-bf6e-696ae710a55b
-bcs = read_barcodes(img)
+bcs = read_barcodes(img, ro)
 
 # ╔═╡ 8040fc7f-a41d-4d95-91a1-7725e2014142
 
@@ -100,8 +105,10 @@ md"""
 begin
     function draw_barcode!(img::cv.Mat{UInt8}, bc::Barcode)
         pos = ZXingCPP.position(bc)
-        ps = [pos.topLeft.x pos.topRight.x pos.bottomRight.x pos.bottomLeft.x
-              pos.topLeft.y pos.topRight.y pos.bottomRight.y pos.bottomLeft.y]
+        ps = [
+            pos.topLeft.x pos.topRight.x pos.bottomRight.x pos.bottomLeft.x
+            pos.topLeft.y pos.topRight.y pos.bottomRight.y pos.bottomLeft.y
+        ]
         pts = reshape(ps, (1, 2, :)) # (2, 1, :), (2, :, 1) also works
         txt = ZXingCPP.text(bc)
 
@@ -119,11 +126,13 @@ begin
 
         polylines(img, [pts], true, (0, 255, 0), thickness = 3)
         cv.putText(img, txt, p, cv.FONT_HERSHEY_DUPLEX, 0.5, (0, 255, 0))
+        return
     end
     function draw_barcodes!(img::cv.Mat{UInt8}, bcs::Barcodes)
         for bc in bcs
             draw_barcode!(img, bc)
         end
+        return
     end
 end
 

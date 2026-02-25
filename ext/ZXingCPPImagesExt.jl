@@ -11,7 +11,7 @@ function Base.Matrix{Gray{N0f8}}(img::Image)
 end
 
 function Base.Matrix(img::Image)
-    Matrix{Gray{N0f8}}(img::Image)
+    return Matrix{Gray{N0f8}}(img::Image)
 end
 
 function ZXingCPP.ImageView(img::Matrix{T}) where {N, T <: Colorant{N0f8, N}}
@@ -54,15 +54,17 @@ function ZXingCPP.ImageView(img::Matrix{T}) where {N, T <: Colorant{N0f8, N}}
 end
 
 function Base.convert(::Type{Matrix{Gray{N0f8}}}, img::Image)
-    Matrix(img)
+    return Matrix(img)
 end
 function Base.convert(::Type{ImageView}, img::Matrix{T}) where {N, T <: Colorant{N0f8, N}}
-    ImageView(img)
+    return ImageView(img)
 end
 
-function ZXingCPP.read_barcodes(img::Matrix{T},
-        opts::ReaderOptions = ReaderOptions()) where {N, T <: Colorant{N0f8, N}}
-    read_barcodes(ImageView(img), opts)
+function ZXingCPP.read_barcodes(
+        img::Matrix{T},
+        opts::ReaderOptions = ReaderOptions()
+    ) where {N, T <: Colorant{N0f8, N}}
+    return read_barcodes(ImageView(img), opts)
 end
 
 end
