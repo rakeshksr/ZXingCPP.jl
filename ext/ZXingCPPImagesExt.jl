@@ -6,7 +6,8 @@ using ZXingCPP
 function Base.Matrix{Gray{N0f8}}(img::Image)
     d = ZXingCPP.data(img)
     nv = normedview(d)
-    gimg = Gray.(nv)
+    pimg = permutedims(nv)
+    gimg = Gray.(pimg)
     return gimg
 end
 
