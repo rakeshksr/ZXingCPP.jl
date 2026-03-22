@@ -12,7 +12,7 @@ function Base.Matrix{Gray{N0f8}}(img::Image)
 end
 
 function Base.Matrix(img::Image)
-    return Matrix{Gray{N0f8}}(img::Image)
+    return Matrix{Gray{N0f8}}(img)
 end
 
 function ZXingCPP.ImageView(img::AbstractMatrix{T}) where {N, T <: Colorant{N0f8, N}}
