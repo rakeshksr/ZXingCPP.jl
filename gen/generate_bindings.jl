@@ -10,7 +10,6 @@ options["general"]["output_file_path"] = normpath(@__DIR__, "../lib/libZXingCpp.
 
 # add compiler flags, e.g. "-DXXXXXXXXX"
 args = get_default_args()
-push!(args, "-I$include_dir", "-DZXING_EXPERIMENTAL_API=ON")
 
 headers = [joinpath(include_dir, "ZXingC.h")]
 

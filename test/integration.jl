@@ -1,10 +1,18 @@
 function check(bc::Barcode, fmt::ZXing_BarcodeFormat, txt::String)
     @test is_valid(bc) == true
     @test format(bc) == fmt
+    @test symbology(bc) == ZXing_BarcodeFormat_QRCode
     @test text(bc) == txt
     @test bytes(bc) == codeunits(txt)
-    @test orientation(bc) == 0
+    @test has_eci(bc) == false
     @test content_type(bc) == ZXing_ContentType_Text
+    @test orientation(bc) == 0
+    @test position(bc).topLeft == ZXing_PointI(4, 4)
+    @test line_count(bc) == 0
+    @test sequence_size(bc) == -1
+	@test sequence_index(bc) == -1
+	@test sequence_id(bc) == ""
+	@test error_type(bc) == ZXing_ErrorType_None
 end
 
 @testset "Create, Read and Write" begin
@@ -20,14 +28,14 @@ end
     @test symbology_identifier(res1) == "]Q1"
     @test position(res1).topLeft.x == 4
 
-    res2 = read_barcodes(iv, ReaderOptions(; formats = fmt))[1]
+    res2 = read_barcodes(iv, ReaderOptions(; formats = [fmt]))[1]
     check(res2, fmt, txt)
 end
 
 @testset "Empty Barcodes" begin
     iv = ImageView(zeros(UInt8, 0, 0), ZXing_ImageFormat_Lum)
     fmt = ZXing_BarcodeFormat_QRCode
-    bcs = read_barcodes(iv, ReaderOptions(; formats = fmt))
+    bcs = read_barcodes(iv, ReaderOptions(; formats = [fmt]))
     @test length(bcs) == 0
 end
 

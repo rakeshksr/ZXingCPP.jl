@@ -17,6 +17,7 @@
     @test length(bcs) == 1
     @test is_valid(bc) == true
     @test format(bc) == ZXing_BarcodeFormat_EAN8
+    @test symbology(bc) == ZXing_BarcodeFormat_EANUPC
     @test text(bc) == expected
     @test bytes(bc) == codeunits(expected)
     @test has_eci(bc) == false
@@ -24,5 +25,9 @@
     @test orientation(bc) == 0
     @test position(bc).topLeft == ZXing_PointI(4, 0)
     @test line_count(bc) == 1
-    @test error_type(bc) == ZXing_ErrorType_None
+    @test sequence_size(bc) == -1
+	@test sequence_index(bc) == -1
+	@test sequence_id(bc) == ""
+	@test error_type(bc) == ZXing_ErrorType_None
+	@test extra(bc, "foo") == ""
 end

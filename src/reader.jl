@@ -18,6 +18,7 @@ function ReaderOptions(; kwargs...)
         :try_invert => set_try_invert!,
         :try_downscale => set_try_downscale!,
         :is_pure => set_is_pure!,
+        :validate_optional_checksum => set_validate_optional_checksum!,
         :return_errors => set_return_errors!,
         :formats => set_formats!,
         :binarizer => set_binarizer!,
@@ -48,11 +49,15 @@ end
 function set_is_pure!(opts::ReaderOptions, is_pure::Bool)
     ZXing_ReaderOptions_setIsPure(opts.ptr, is_pure)
 end
+function set_validate_optional_checksum!(opts::ReaderOptions, validate_optional_checksum::Bool)
+    ZXing_ReaderOptions_setValidateOptionalChecksum(opts.ptr, validate_optional_checksum)
+end
 function set_return_errors!(opts::ReaderOptions, return_errors::Bool)
     ZXing_ReaderOptions_setReturnErrors(opts.ptr, return_errors)
 end
-function set_formats!(opts::ReaderOptions, formats::ZXing_BarcodeFormats)
-    ZXing_ReaderOptions_setFormats(opts.ptr, formats)
+function set_formats!(opts::ReaderOptions, formats::BarcodeFormats)
+     count = length(formats)
+    ZXing_ReaderOptions_setFormats(opts.ptr, formats, count)
 end
 function set_binarizer!(opts::ReaderOptions, binarizer::ZXing_Binarizer)
     ZXing_ReaderOptions_setBinarizer(opts.ptr, binarizer)
@@ -76,8 +81,13 @@ get_try_rotate(opts::ReaderOptions) = ZXing_ReaderOptions_getTryRotate(opts.ptr)
 get_try_invert(opts::ReaderOptions) = ZXing_ReaderOptions_getTryInvert(opts.ptr)
 get_try_downscale(opts::ReaderOptions) = ZXing_ReaderOptions_getTryDownscale(opts.ptr)
 get_is_pure(opts::ReaderOptions) = ZXing_ReaderOptions_getIsPure(opts.ptr)
+get_validate_optional_checksum(opts::ReaderOptions) = ZXing_ReaderOptions_getValidateOptionalChecksum(opts.ptr)
 get_return_errors(opts::ReaderOptions) = ZXing_ReaderOptions_getReturnErrors(opts.ptr)
-get_formats(opts::ReaderOptions) = ZXing_ReaderOptions_getFormats(opts.ptr)
+function get_formats(opts::ReaderOptions)
+    len = Ref{Int32}(0)
+    fmts_ptr = ZXing_ReaderOptions_getFormats(opts.ptr, len)
+    return unsafe_wrap(BarcodeFormats, fmts_ptr, len[])
+end
 get_binarizer(opts::ReaderOptions) = ZXing_ReaderOptions_getBinarizer(opts.ptr)
 get_ean_add_on_symbol(opts::ReaderOptions) = ZXing_ReaderOptions_getEanAddOnSymbol(opts.ptr)
 get_text_mode(opts::ReaderOptions) = ZXing_ReaderOptions_getTextMode(opts.ptr)
@@ -92,6 +102,7 @@ function Base.show(io::IO, opts::ReaderOptions)
     try_invert = get_try_invert(opts)
     try_downscale = get_try_downscale(opts)
     is_pure = get_is_pure(opts)
+    validate_optional_checksum = get_validate_optional_checksum(opts)
     return_errors = get_return_errors(opts)
     formats = string(get_formats(opts))
     binarizer = get_binarizer(opts)
@@ -108,6 +119,7 @@ ReaderOptions(
     try_invert: $try_invert
     try_downscale: $try_downscale
     is_pure: $is_pure
+    validate_optional_checksum: $validate_optional_checksum
     return_errors: $return_errors
     formats: $formats
     binarizer: $binarizer

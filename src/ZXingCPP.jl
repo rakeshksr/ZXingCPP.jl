@@ -9,6 +9,9 @@ include(joinpath(libdir, "libZXingCpp.jl"))
 
 include("show.jl")
 
+include("barcode_format.jl")
+export BarcodeFormats
+
 include("barcode.jl")
 export Barcode, Barcodes
 
@@ -22,7 +25,7 @@ include("reader.jl")
 export ReaderOptions, read_barcodes
 
 include("writer.jl")
-export WriterOptions, write_barcode_to_svg, write_barcode_to_image
+export WriterOptions, write_barcode_to_image, write_barcode_to_svg
 
 include("precompile.jl")
 

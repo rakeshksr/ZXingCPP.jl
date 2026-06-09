@@ -43,7 +43,7 @@ save("barcode.png", jimg)
 **Read:**
 ```julia
 img = load("barcode.png")
-ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
+ro = ReaderOptions(; formats=[ZXing_BarcodeFormat_QRCode])
 bcs = read_barcodes(img, ro)
 print(bcs)
 ```
@@ -75,7 +75,7 @@ OpenCV.imwrite("barcode.png", cvimg)
 **Read:**
 ```julia
 img = OpenCV.imread("barcode.png", OpenCV.IMREAD_UNCHANGED)
-ro = ReaderOptions(; formats=ZXing_BarcodeFormat_QRCode)
+ro = ReaderOptions(; formats=[ZXing_BarcodeFormat_QRCode])
 bcs = read_barcodes(img, ro)
 print(bcs)
 ```

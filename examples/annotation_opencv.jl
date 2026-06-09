@@ -89,7 +89,7 @@ md"""
 img = cv.imread("barcode_opencv.png", cv.IMREAD_UNCHANGED)
 
 # ╔═╡ f869f3d1-6cfa-45e4-9ab7-3b3526345acf
-ro = ReaderOptions(; formats = ZXing_BarcodeFormat_QRCode)
+ro = ReaderOptions(; formats = [ZXing_BarcodeFormat_QRCode])
 
 # ╔═╡ 9e0027f0-90b8-4c21-bf6e-696ae710a55b
 bcs = read_barcodes(img, ro)

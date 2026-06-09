@@ -13,10 +13,8 @@ function CreatorOptions(format::ZXing_BarcodeFormat; kwargs...)
     ptr = ZXing_CreatorOptions_new(format)
     opts = CreatorOptions(ptr)
     kw_map = Dict(
-        # :format => set_format!,
-        :reader_init => set_reader_init!,
-        :force_square_data_matrix => set_force_square_data_matrix!,
-        :ec_level => set_ec_level!
+        :format => set_format!,
+        :options => set_options!
     )
     for (k, v) in kwargs
         fun = kw_map[k]
@@ -25,44 +23,28 @@ function CreatorOptions(format::ZXing_BarcodeFormat; kwargs...)
     return opts
 end
 
-# ERROR: could not load symbol "ZXing_CreatorOptions_setFormat"
-# set_format!(opts::CreatorOptions, format::ZXing_BarcodeFormat) = ZXing_CreatorOptions_setFormat(opts.ptr, format)
-function set_reader_init!(opts::CreatorOptions, reader_init::Bool)
-    ZXing_CreatorOptions_setReaderInit(opts.ptr, reader_init)
-end
-function set_force_square_data_matrix!(opts::CreatorOptions, force_square_data_matrix::Bool)
-    ZXing_CreatorOptions_setForceSquareDataMatrix(opts.ptr, force_square_data_matrix)
-end
-function set_ec_level!(opts::CreatorOptions, ec_level::String)
-    ZXing_CreatorOptions_setEcLevel(opts.ptr, ec_level)
+set_format!(opts::CreatorOptions, format::ZXing_BarcodeFormat) = ZXing_CreatorOptions_setFormat(opts.ptr, format)
+function set_options!(opts::CreatorOptions, options::String)
+    ZXing_CreatorOptions_setOptions(opts.ptr, options)
 end
 
-# ERROR: could not load symbol "ZXing_CreatorOptions_getFormat"
-# get_format(opts::CreatorOptions) = ZXing_CreatorOptions_getFormat(opts.ptr)
-get_reader_init(opts::CreatorOptions) = ZXing_CreatorOptions_getReaderInit(opts.ptr)
-function get_force_square_data_matrix(opts::CreatorOptions)
-    ZXing_CreatorOptions_getForceSquareDataMatrix(opts.ptr)
-end
-function get_ec_level(opts::CreatorOptions)
-    unsafe_string(ZXing_CreatorOptions_getEcLevel(opts.ptr))
+get_format(opts::CreatorOptions) = ZXing_CreatorOptions_getFormat(opts.ptr)
+function get_options(opts::CreatorOptions)
+    unsafe_string(ZXing_CreatorOptions_getOptions(opts.ptr))
 end
 
 function Base.show(io::IO, opts::CreatorOptions)
-    # format = get_format(opts)
-    reader = get_reader_init(opts)
-    force_square_data_matrix = get_force_square_data_matrix(opts)
-    ec_level = get_ec_level(opts)
+    format = get_format(opts)
+    options = get_options(opts)
 
     print(
         io,
         """
 CreatorOptions(
-    format: 
-    reader: $reader
-    force_square_data_matrix: $force_square_data_matrix
-    ec_level: $ec_level
-)
-    """
+    format: $format
+    options: $options
+    )
+"""
     )
 end
 

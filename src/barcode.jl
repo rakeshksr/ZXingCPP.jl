@@ -14,6 +14,7 @@ is_valid(barcode::Barcode) = ZXing_Barcode_isValid(barcode.ptr)
 error_type(barcode::Barcode) = ZXing_Barcode_errorType(barcode.ptr)
 error_msg(barcode::Barcode) = unsafe_string(ZXing_Barcode_errorMsg(barcode.ptr))
 format(barcode::Barcode) = ZXing_Barcode_format(barcode.ptr)
+symbology(barcode::Barcode) = ZXing_Barcode_symbology(barcode.ptr)
 content_type(barcode::Barcode) = ZXing_Barcode_contentType(barcode.ptr)
 
 function bytes(barcode::Barcode)
@@ -29,7 +30,6 @@ function bytes_eci(barcode::Barcode)
 end
 
 text(barcode::Barcode) = unsafe_string(ZXing_Barcode_text(barcode.ptr))
-ec_level(barcode::Barcode) = unsafe_string(ZXing_Barcode_ecLevel(barcode.ptr))
 function symbology_identifier(barcode::Barcode)
     unsafe_string(ZXing_Barcode_symbologyIdentifier(barcode.ptr))
 end
@@ -39,6 +39,14 @@ has_eci(barcode::Barcode) = ZXing_Barcode_hasECI(barcode.ptr)
 is_inverted(barcode::Barcode) = ZXing_Barcode_isInverted(barcode.ptr)
 is_mirrored(barcode::Barcode) = ZXing_Barcode_isMirrored(barcode.ptr)
 line_count(barcode::Barcode) = ZXing_Barcode_lineCount(barcode.ptr)
+sequence_index(barcode::Barcode) = ZXing_Barcode_sequenceIndex(barcode.ptr)
+sequence_size(barcode::Barcode) = ZXing_Barcode_sequenceSize(barcode.ptr)
+function sequence_id(barcode::Barcode)
+    unsafe_string(ZXing_Barcode_sequenceId(barcode.ptr))
+end
+function extra(barcode::Barcode, key::String)
+    unescape_string(unsafe_string(ZXing_Barcode_extra(barcode.ptr, key)))
+end
 
 function Base.show(io::IO, ::MIME"text/plain", barcode::Barcode)
     fmt = string(format(barcode))

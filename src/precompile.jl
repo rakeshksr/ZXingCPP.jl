@@ -10,6 +10,6 @@ using PrecompileTools
         wo = WriterOptions(; scale = 10)
         write_barcode_to_image(bc, wo)
 
-        ro = ReaderOptions(; formats = f)
+        ro = ReaderOptions(; formats = [f])
     end
 end

@@ -7,18 +7,23 @@ using ZXingCPP: # Barcode
                 bytes,
                 content_type,
                 error_type,
+                extra,
                 format,
                 has_eci,
                 is_valid,
                 line_count,
                 orientation,
+                sequence_id,
+                sequence_index,
+                sequence_size,
+                symbology, # Barcode Format
                 symbology_identifier,
                 text,
-
 # Creator
-                get_reader_init,
-                set_reader_init!,
-
+                get_format,
+                get_options,
+                set_format!,
+                set_options!,
 # Reader
                 get_formats,
                 get_is_pure,
