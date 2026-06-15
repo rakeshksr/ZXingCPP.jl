@@ -32,9 +32,15 @@ function Base.convert(::Type{ImageView}, img::OpenCV.Mat)
 end
 
 function ZXingCPP.read_barcodes(
-        img::OpenCV.Mat{UInt8}, opts::ReaderOptions = ReaderOptions()
+        img::OpenCV.Mat{UInt8}, opts::ReaderOptions
     )
     return read_barcodes(ImageView(img), opts)
+end
+
+function ZXingCPP.read_barcodes(
+        img::OpenCV.Mat{UInt8}; kwargs...
+    )
+    return read_barcodes(ImageView(img); kwargs...)
 end
 
 end

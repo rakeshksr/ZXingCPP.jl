@@ -61,9 +61,12 @@ WriterOptions(
     )
 end
 
-function write_barcode_to_svg(barcode::Barcode, opts::WriterOptions = WriterOptions())
+function write_barcode_to_svg(barcode::Barcode, opts::WriterOptions)
     unsafe_string(ZXing_WriteBarcodeToSVG(barcode.ptr, opts.ptr))
 end
-function write_barcode_to_image(barcode::Barcode, opts::WriterOptions = WriterOptions())
+write_barcode_to_svg(barcode::Barcode; kwargs...) = write_barcode_to_svg(barcode, WriterOptions(; kwargs...))
+
+function write_barcode_to_image(barcode::Barcode, opts::WriterOptions)
     Image(ZXing_WriteBarcodeToImage(barcode.ptr, opts.ptr))
 end
+write_barcode_to_image(barcode::Barcode; kwargs...) = write_barcode_to_image(barcode, WriterOptions(; kwargs...))

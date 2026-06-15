@@ -26,16 +26,13 @@ using ImageIO
 
 **Create:**
 ```julia
-f = ZXing_BarcodeFormat_QRCode
-co = CreatorOptions(f)
-bc = Barcode("HELLO WORLD", co)
+bc = Barcode("HELLO WORLD", ZXing_BarcodeFormat_QRCode)
 print(bc)
 ```
 
 **Write:**
 ```julia
-wo = WriterOptions(; scale=10)
-zimg = write_barcode_to_image(bc, wo)
+zimg = write_barcode_to_image(bc, scale=10)
 jimg = Matrix(zimg)
 save("barcode.png", jimg)
 ```
@@ -43,8 +40,7 @@ save("barcode.png", jimg)
 **Read:**
 ```julia
 img = load("barcode.png")
-ro = ReaderOptions(; formats=[ZXing_BarcodeFormat_QRCode])
-bcs = read_barcodes(img, ro)
+bcs = read_barcodes(img, formats=[ZXing_BarcodeFormat_QRCode])
 print(bcs)
 ```
 
@@ -58,16 +54,13 @@ using OpenCV
 ```
 **Create:**
 ```julia
-f = ZXing_BarcodeFormat_QRCode
-co = CreatorOptions(f)
-bc = Barcode("HELLO WORLD", co)
+bc = Barcode("HELLO WORLD", ZXing_BarcodeFormat_QRCode)
 print(bc)
 ```
 
 **Write:**
 ```julia
-wo = WriterOptions(; scale=10)
-zimg = write_barcode_to_image(bc, wo)
+zimg = write_barcode_to_image(bc, scale=10)
 cvimg = OpenCV.Mat(zimg)
 OpenCV.imwrite("barcode.png", cvimg)
 ```
@@ -75,8 +68,7 @@ OpenCV.imwrite("barcode.png", cvimg)
 **Read:**
 ```julia
 img = OpenCV.imread("barcode.png", OpenCV.IMREAD_UNCHANGED)
-ro = ReaderOptions(; formats=[ZXing_BarcodeFormat_QRCode])
-bcs = read_barcodes(img, ro)
+bcs = read_barcodes(img, formats=[ZXing_BarcodeFormat_QRCode])
 print(bcs)
 ```
 

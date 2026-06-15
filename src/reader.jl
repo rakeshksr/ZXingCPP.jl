@@ -132,6 +132,7 @@ ReaderOptions(
     )
 end
 
-function read_barcodes(iv::ImageView, opts::ReaderOptions = ReaderOptions())
+function read_barcodes(iv::ImageView, opts::ReaderOptions)
     Barcodes(ZXing_ReadBarcodes(iv.ptr, opts.ptr))
 end
+read_barcodes(iv::ImageView; kwargs...) = read_barcodes(iv, ReaderOptions(; kwargs...))

@@ -63,9 +63,15 @@ end
 
 function ZXingCPP.read_barcodes(
         img::AbstractMatrix{T},
-        opts::ReaderOptions = ReaderOptions()
+        opts::ReaderOptions
     ) where {N, T <: Colorant{N0f8, N}}
     return read_barcodes(ImageView(img), opts)
+end
+
+function ZXingCPP.read_barcodes(
+        img::AbstractMatrix{T}; kwargs...
+    ) where {N, T <: Colorant{N0f8, N}}
+    return read_barcodes(ImageView(img); kwargs...)
 end
 
 end

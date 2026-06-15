@@ -67,10 +67,17 @@ end
 function Barcode(data::String, sz::Integer, opts::CreatorOptions)
     create_barcode_from_text(data, sz, opts)
 end
+Barcode(data::String, sz::Integer, format::ZXing_BarcodeFormat; kwargs...) = Barcode(data, sz, CreatorOptions(format; kwargs...))
 Barcode(data::String, opts::CreatorOptions) = create_barcode_from_text(data, opts)
+Barcode(data::String, format::ZXing_BarcodeFormat; kwargs...) = Barcode(data, CreatorOptions(format; kwargs...))
+
+
 function Barcode(data::AbstractArray{UInt8}, sz::Integer, opts::CreatorOptions)
     create_barcode_from_bytes(data, sz, opts)
 end
+Barcode(data::AbstractArray{UInt8}, sz::Integer, format::ZXing_BarcodeFormat; kwargs...) = Barcode(data, sz, CreatorOptions(format; kwargs...))
+
 function Barcode(data::AbstractArray{UInt8}, opts::CreatorOptions)
     create_barcode_from_bytes(data, opts)
 end
+Barcode(data::AbstractArray{UInt8}, format::ZXing_BarcodeFormat; kwargs...) = Barcode(data, CreatorOptions(format; kwargs...))
