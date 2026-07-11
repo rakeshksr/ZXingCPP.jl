@@ -107,6 +107,9 @@ end
     ZXing_BarcodeFormat_ISBN = 26949
     ZXing_BarcodeFormat_UPCA = 24901
     ZXing_BarcodeFormat_UPCE = 25925
+    ZXing_BarcodeFormat_Telepen = 8258
+    ZXing_BarcodeFormat_TelepenAlpha = 12354
+    ZXing_BarcodeFormat_TelepenNumeric = 12610
     ZXing_BarcodeFormat_OtherBarcode = 8280
     ZXing_BarcodeFormat_DXFilmEdge = 30808
     ZXing_BarcodeFormat_PDF417 = 8268
@@ -306,7 +309,7 @@ end
     ZXing_TextMode_HexECI = 5
 end
 
-# no prototype is found for this function at ZXingC.h:187:22, please use with caution
+# no prototype is found for this function at ZXingC.h:196:22, please use with caution
 function ZXing_ReaderOptions_new()
     @ccall libZXing.ZXing_ReaderOptions_new()::Ptr{ZXing_ReaderOptions}
 end
@@ -423,6 +426,9 @@ end
     ZXing_ReadBarcodes(iv, opts)
 
 Note: opts is optional, i.e. it can be NULL, which will imply default settings.
+
+# Returns
+NULL in case of an error (e.g. invalid image or out of memory), otherwise a pointer to a [`ZXing_Barcodes`](@ref) object, which may contain zero or more barcodes. Freeing the empty [`ZXing_Barcodes`](@ref) object is optional.
 """
 function ZXing_ReadBarcodes(iv, opts)
     @ccall libZXing.ZXing_ReadBarcodes(iv::Ptr{ZXing_ImageView}, opts::Ptr{ZXing_ReaderOptions})::Ptr{ZXing_Barcodes}
@@ -460,7 +466,7 @@ function ZXing_CreateBarcodeFromBytes(data, size, opts)
     @ccall libZXing.ZXing_CreateBarcodeFromBytes(data::Ptr{Cvoid}, size::Cint, opts::Ptr{ZXing_CreatorOptions})::Ptr{ZXing_Barcode}
 end
 
-# no prototype is found for this function at ZXingC.h:251:22, please use with caution
+# no prototype is found for this function at ZXingC.h:264:22, please use with caution
 function ZXing_WriterOptions_new()
     @ccall libZXing.ZXing_WriterOptions_new()::Ptr{ZXing_WriterOptions}
 end
@@ -514,12 +520,12 @@ function ZXing_WriteBarcodeToImage(barcode, opts)
     @ccall libZXing.ZXing_WriteBarcodeToImage(barcode::Ptr{ZXing_Barcode}, opts::Ptr{ZXing_WriterOptions})::Ptr{ZXing_Image}
 end
 
-# no prototype is found for this function at ZXingC.h:273:7, please use with caution
+# no prototype is found for this function at ZXingC.h:286:7, please use with caution
 function ZXing_LastErrorMsg()
     @ccall libZXing.ZXing_LastErrorMsg()::Cstring
 end
 
-# no prototype is found for this function at ZXingC.h:275:13, please use with caution
+# no prototype is found for this function at ZXingC.h:288:13, please use with caution
 function ZXing_Version()
     @ccall libZXing.ZXing_Version()::Cstring
 end
@@ -542,13 +548,13 @@ const ZXING_ENABLE_QRCODE = 1
 
 const ZXING_VERSION_MAJOR = 3
 
-const ZXING_VERSION_MINOR = 0
+const ZXING_VERSION_MINOR = 1
 
-const ZXING_VERSION_PATCH = 2
+const ZXING_VERSION_PATCH = 0
 
 const ZXING_VERSION_SUFFIX = ""
 
-const ZXING_VERSION_STR = "3.0.2"
+const ZXING_VERSION_STR = "3.1.0"
 
 # Skipping MacroDefinition: X ( NAME , SYM , VAR , FLAGS , ZINT , ENABLED , HRI ) ZXing_BarcodeFormat_ ## NAME = ZX_BCF_ID ( SYM , VAR ) ,
 

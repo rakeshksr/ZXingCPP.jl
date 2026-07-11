@@ -2,7 +2,7 @@ module ZXingCPP
 using ZXing_CPP_jll
 using Reexport
 
-libdir = joinpath(@__DIR__, "..", "lib")
+const libdir = joinpath(@__DIR__, "..", "lib")
 include(joinpath(libdir, "libZXingCpp.jl"))
 
 @reexport using .libZXingCpp
